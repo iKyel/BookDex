@@ -10,12 +10,33 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const [login, { isLoading }] = useLoginMutation();
+
+  const { userInfo } = useSelector((state) => state.auth);
+
+  const { search } = useLocation();
+  const sp = new URLSearchParams(search);
+  const redirect = sp.get("redirect") || "/";
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate(redirect);
+    }
+  }, [navigate, redirect, userInfo]);
+
+  const submitHandler = async (e) => {
     e.preventDefault();
-    // Xử lý đăng nhập ở đây
-    console.log("Email:", email);
-    console.log("Password:", password);
+    try {
+      const res = await login({ email, password }).unwrap();
+      console.log(res);
+      dispatch(setCredentials({ ...res }));
+      navigate(redirect);
+    } catch (err) {
+      toast.error(err?.data?.message || err.error);
+    }
   };
 
   return (
@@ -33,7 +54,7 @@ const Login = () => {
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          <form className="space-y-6" onSubmit={handleSubmit}>
+          <form className="space-y-6" onSubmit={submitHandler}>
             <div>
               <label
                 htmlFor="email"
@@ -104,22 +125,25 @@ const Login = () => {
 
             <div>
               <button
+                disabled={isLoading}
                 type="submit"
                 className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
               >
-                Đăng Nhập
+                {isLoading ? "Đăng Nhập..." : "Đăng Nhập"}
               </button>
+
+              {isLoading && <Loader />}
             </div>
 
             <div className="flex justify-center mt-4 text-sm text-gray-600">
               <p>
                 Chưa có tài khoản?{" "}
-                <a
-                  href="#"
+                <Link
+                  to={redirect ? `/register?redirect=${redirect}` : "/register"}
                   className="font-medium text-blue-600 hover:text-blue-500"
                 >
                   Đăng Ký
-                </a>
+                </Link>
               </p>
             </div>
           </form>

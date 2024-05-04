@@ -3,10 +3,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { useSelector, useDispatch } from "react-redux";
-import {
-  useLoginMutation,
-  useLogoutMutation,
-} from "../../redux/api/usersApiSlice";
+import { useLogoutMutation } from "../../redux/api/usersApiSlice";
 import { logout } from "../../redux/features/auth/authSlice";
 
 const Navigation = () => {
@@ -24,12 +21,15 @@ const Navigation = () => {
     }
   };
 
+  const [isAccountOpen, setIsAccountOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const toggleDropdown = () => {};
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   const toggleAccount = () => {
-    setIsMenuOpen(!isMenuOpen);
+    setIsAccountOpen(!isAccountOpen);
   };
 
   return (
@@ -43,7 +43,9 @@ const Navigation = () => {
               src="https://mangadex.org/img/brand/mangadex-logo.svg"
               alt="BookDex Logo"
             />
-            <h1 className="text-lg font-semibold">BookDex</h1>
+            <Link to="/home">
+              <h1 className="text-lg font-semibold">BookDex</h1>
+            </Link>
           </div>
 
           {/* Search bar */}
@@ -65,27 +67,118 @@ const Navigation = () => {
             <a href="#" className="hover:text-gray-300 focus:outline-none">
               <FaMapMarkerAlt className="h-5 w-5" />
             </a>
-            <a href="#" className="hover:text-gray-300" onClick={toggleAccount}>
-              Account
-            </a>
-            {/* Dropdown menu */}
-            <div className="relative">
-              {isMenuOpen && (
-                <div className="absolute right-0 mt-5 w-36 bg-[#282A36] shadow-lg rounded-md overflow-hidden z-10">
-                  <Link
-                    to="/login"
-                    className="block px-4 py-2 text-white hover:bg-gray-700"
-                  >
-                    Đăng Nhập
-                  </Link>
-                  <Link
-                    to="/register"
-                    className="block px-4 py-2 text-white hover:bg-gray-700"
-                  >
-                    Đăng Ký
-                  </Link>
+            {!userInfo && (
+              <>
+                <a
+                  href="#"
+                  className="hover:text-gray-300"
+                  onClick={toggleAccount}
+                >
+                  Account
+                </a>
+                {/* Dropdown menu */}
+                <div className="relative">
+                  {isAccountOpen && (
+                    <div className="absolute right-0 mt-5 w-36 bg-[#282A36] shadow-lg rounded-md overflow-hidden z-10">
+                      <Link
+                        to="/login"
+                        className="block px-4 py-2 text-white hover:bg-gray-700"
+                      >
+                        Đăng Nhập
+                      </Link>
+                      <Link
+                        to="/register"
+                        className="block px-4 py-2 text-white hover:bg-gray-700"
+                      >
+                        Đăng Ký
+                      </Link>
+                    </div>
+                  )}
                 </div>
-              )}
+              </>
+            )}
+
+            <div>
+              <button onClick={toggleMenu}>
+                {userInfo ? (
+                  <span className="text-white">{userInfo.username}</span>
+                ) : (
+                  <></>
+                )}
+
+                <div className="relative">
+                  {isMenuOpen && userInfo && (
+                    <ul className={`${userInfo.isAdmin ? "" : ""}`}>
+                      {!userInfo.isAdmin && (
+                        <>
+                          <div className="absolute right-0 mt-5 w-36 bg-[#282A36] shadow-lg rounded-md overflow-hidden z-10">
+                            <Link
+                              to="/profile"
+                              className="block px-4 py-2 text-white hover:bg-gray-700"
+                            >
+                              Tài Khoản
+                            </Link>
+                            <Link
+                              onClick={logoutHandler} // Chỉ thêm logout handler nếu không phải admin
+                              className="block px-4 py-2 text-white hover:bg-gray-700"
+                            >
+                              Đăng Xuất
+                            </Link>
+                          </div>
+                        </>
+                      )}
+                      {userInfo.isAdmin && (
+                        <>
+                          <div className="absolute right-0 mt-5 w-36 bg-[#282A36] shadow-lg rounded-md overflow-hidden z-10">
+                            <Link
+                              to="/admin/profile"
+                              className="block px-4 py-2 text-white hover:bg-gray-700"
+                            >
+                              Tài Khoản
+                            </Link>
+                            <Link
+                              to="/admin/dashboard"
+                              className="block px-4 py-2 text-white hover:bg-gray-700"
+                            >
+                              DashBoard
+                            </Link>
+                            <Link
+                              to="/admin/booklist"
+                              className="block px-4 py-2 text-white hover:bg-gray-700"
+                            >
+                              Tủ Sách
+                            </Link>
+                            <Link
+                              to="/admin/demographiclist"
+                              className="block px-4 py-2 text-white hover:bg-gray-700"
+                            >
+                              Phân Loại
+                            </Link>
+                            <Link
+                              to="/admin/orderlist"
+                              className="block px-4 py-2 text-white hover:bg-gray-700"
+                            >
+                              Đặt Hàng
+                            </Link>
+                            <Link
+                              to="/admin/userlist"
+                              className="block px-4 py-2 text-white hover:bg-gray-700"
+                            >
+                              Người Dùng
+                            </Link>
+                            <Link
+                              onClick={logoutHandler}
+                              className="block px-4 py-2 text-white hover:bg-gray-700"
+                            >
+                              Đăng Xuất
+                            </Link>
+                          </div>
+                        </>
+                      )}
+                    </ul>
+                  )}
+                </div>
+              </button>
             </div>
             <a href="#" className="hover:text-gray-300">
               Orders
@@ -93,16 +186,6 @@ const Navigation = () => {
             <a href="#" className="hover:text-gray-300">
               <FaShoppingCart className="h-5 w-5" />
             </a>
-
-            <div>
-              <button onClick={toggleDropdown}>
-                {userInfo ? (
-                  <span className="text-white">{userInfo.username}</span>
-                ) : (
-                  <></>
-                )}
-              </button>
-            </div>
           </div>
         </div>
       </div>
