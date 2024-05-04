@@ -25,8 +25,8 @@ const createDemographic = asyncHandler(async (req, res) => {
 
 const updateDemographic = asyncHandler(async (req, res) => {
   try {
-    const { name } = req.body;
     const { demographicId } = req.params;
+    const updates = req.body;
 
     const demographic = await Demographic.findOne({ _id: demographicId });
 
@@ -34,7 +34,10 @@ const updateDemographic = asyncHandler(async (req, res) => {
       return res.status(404).json({ error: "Không tìm thấy" });
     }
 
-    demographic.name = name;
+    // Cập nhật các trường có trong req.body
+    Object.keys(updates).forEach(key => {
+      demographic[key] = updates[key];
+    });
 
     const updatedDemographic = await demographic.save();
     res.json(updatedDemographic);

@@ -7,7 +7,10 @@ import cookieParser from "cookie-parser";
 // Utiles
 import connectDB from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js";
-import demographicRoutes from "./routes/demographicRoutes.js"
+import demographicRoutes from "./routes/demographicRoutes.js";
+import authorRoutes from "./routes/authorRoutes.js";
+import bookRoutes from "./routes/bookRoutes.js"
+import uploadRoutes from "./routes/uploadRoutes.js"
 // import productRoutes from "./routes/productRoutes.js";
 // import uploadRoutes from "./routes/uploadRoutes.js";
 // import orderRoutes from "./routes/orderRoutes.js";
@@ -25,19 +28,12 @@ app.use(cookieParser());
 
 // api
 app.use("/api/users", userRoutes);
-app.use("/api/demographics", demographicRoutes)
-
-/* app.use("/api/users", userRoutes);
-app.use("/api/category", categoryRoutes);
-app.use("/api/products", productRoutes);
-app.use("/api/upload", uploadRoutes);
-app.use("/api/orders", orderRoutes);
-
-app.get("/api/config/paypal", (req, res) => {
-  res.send({ clientId: process.env.PAYPAL_CLIENT_ID });
-});
+app.use("/api/demographics", demographicRoutes);
+app.use("/api/authors", authorRoutes);
+app.use("/api/books", bookRoutes);
+app.use("/api/uploads", uploadRoutes)
 
 const __dirname = path.resolve();
-app.use("/uploads", express.static(path.join(__dirname + "/uploads"))); */
+app.use("/uploads", express.static(path.join(__dirname + "/uploads")));
 
 app.listen(port, () => console.log(`Server đang chạy trên: ${port}`));
