@@ -10,6 +10,7 @@ import {
 } from "../../redux/api/demographicsApiSlice";
 import { toast } from "react-toastify";
 
+
 const DemographicList = () => {
   const {
     data: demographics,
@@ -56,7 +57,7 @@ const DemographicList = () => {
     if (window.confirm("Bạn có chắc chắn muốn xóa phân loại này không?")) {
       try {
         await deleteDemographic(id);
-        toast.success("Phân loại đã được xóa thành công");
+        toast.success("Phân loại đã được xóa thành công!");
         refetch();
       } catch (err) {
         toast.error(err?.data?.message || err.error);
