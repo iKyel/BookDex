@@ -137,48 +137,6 @@ const Navigation = () => {
                               Tài Khoản
                             </Link>
                             <Link
-                              to="/admin/dashboard"
-                              className="block px-4 py-2 text-white hover:bg-gray-700"
-                            >
-                              DashBoard
-                            </Link>
-                            <Link
-                              to="/admin/addbook"
-                              className="block px-4 py-2 text-white hover:bg-gray-700"
-                            >
-                              Thêm Sách
-                            </Link>
-                            <Link
-                              to="/admin/allbooks"
-                              className="block px-4 py-2 text-white hover:bg-gray-700"
-                            >
-                              Tất Cả Sách
-                            </Link>
-                            <Link
-                              to="/admin/demographiclist"
-                              className="block px-4 py-2 text-white hover:bg-gray-700"
-                            >
-                              Phân Loại
-                            </Link>
-                            <Link
-                              to="/admin/authorlist"
-                              className="block px-4 py-2 text-white hover:bg-gray-700"
-                            >
-                              Tác Giả
-                            </Link>
-                            <Link
-                              to="/admin/orderlist"
-                              className="block px-4 py-2 text-white hover:bg-gray-700"
-                            >
-                              Đặt Hàng
-                            </Link>
-                            <Link
-                              to="/admin/userlist"
-                              className="block px-4 py-2 text-white hover:bg-gray-700"
-                            >
-                              Người Dùng
-                            </Link>
-                            <Link
                               onClick={logoutHandler}
                               className="block px-4 py-2 text-white hover:bg-gray-700"
                             >

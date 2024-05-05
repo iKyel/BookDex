@@ -18,8 +18,8 @@ import PrivateRoute from "./pages/Auth/PrivateRoute";
 import Profile from "./pages/User/Profile";
 import AdminRoute from "./pages/Admin/AdminRoute"
 import UserList from "./pages/Admin/UserList";
-import DemographicList from "./pages/Admin/DemographicList";
-import AuthorList from "./pages/Admin/AuthorList";
+import DemographicList from "./pages/Admin/Books/Demographic/DemographicList";
+import AuthorList from "./pages/Admin/Books/Author/AuthorList";
 
 // Books
 import BookList from "./pages/Admin/Books/BookList";

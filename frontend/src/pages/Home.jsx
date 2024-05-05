@@ -1,8 +1,8 @@
-
+import AdminMenu from "./Admin/AdminMenu"
 const Home = () => {
   return (
     <div>
-      
+      <AdminMenu />
     </div>
   )
 }
