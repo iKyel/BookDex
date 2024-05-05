@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   useUploadBookCoverMutation,
   useCreateBookMutation,
@@ -28,6 +30,8 @@ const BookList = () => {
   const [searchedAuthors, setSearchedAuthors] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false); // New state
 
+  const navigate = useNavigate()
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -52,7 +56,7 @@ const BookList = () => {
         );
       } else {
         toast.success(`${data.name} đã được tạo thành công`);
-        // Redirect or handle success action here
+        navigate("/admin/allbooks")
       }
     } catch (error) {
       console.error(error);
@@ -121,7 +125,7 @@ const BookList = () => {
             />
           </div>
 
-          <div className="mb-4">
+          <div className="mb-2">
             <label className="block text-sm font-bold mb-2" htmlFor="author">
               Tác Giả
             </label>
@@ -166,6 +170,15 @@ const BookList = () => {
                 </div>
               )}
             </div>
+          </div>
+          <div className="text-gray-500 mb-4">
+            Không tìm thấy tác giả?{" "}
+            <Link
+              to="/admin/authorlist"
+              className="text-blue-500 hover:underline"
+            >
+              Tạo ngay!
+            </Link>
           </div>
 
           <div className="mb-4">
