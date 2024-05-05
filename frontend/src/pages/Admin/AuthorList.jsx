@@ -12,7 +12,6 @@ import { toast } from "react-toastify";
 
 const AuthorList = () => {
   const { data: authors, refetch, isLoading, error } = useFetchAuthorsQuery();
-  console.log(authors);
   const [name, setName] = useState("");
   const [biography, setBiography] = useState("");
   const [whereToFind, setWhereToFind] = useState([]);
@@ -208,8 +207,10 @@ const AuthorList = () => {
                           setEditableAuthorBiography(e.target.value)
                         }
                       ></textarea>
+                    ) : author.biography.length > 50 ? (
+                      `${author.biography.substring(0, 50)}...`
                     ) : (
-                        author.biography.length > 50 ? `${author.biography.substring(0, 50)}...` : author.biography
+                      author.biography
                     )}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">

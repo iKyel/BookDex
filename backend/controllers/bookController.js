@@ -58,9 +58,9 @@ const addBook = asyncHandler(async (req, res) => {
     const { name, synopsis, author, cover, demographic, publisher, number_of_pages, price, countInStock } = req.body;
 
     // Validation
-    if (!name || !synopsis || !author || !cover || !demographic || !publisher || !number_of_pages || !price || !countInStock) {
-      return res.status(400).json({ error: "All fields are required" });
-    }
+    // if (!name || !synopsis || !author || !cover || !demographic || !publisher || !number_of_pages || !price || !countInStock) {
+    //   return res.status(400).json({ error: "All fields are required" });
+    // }
 
     const book = new Book({ name, synopsis, author, cover, demographic, publisher, number_of_pages, price, countInStock });
     await book.save();
