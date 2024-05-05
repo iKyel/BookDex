@@ -155,6 +155,12 @@ const Navigation = () => {
                               Phân Loại
                             </Link>
                             <Link
+                              to="/admin/authorlist"
+                              className="block px-4 py-2 text-white hover:bg-gray-700"
+                            >
+                              Tác Giả
+                            </Link>
+                            <Link
                               to="/admin/orderlist"
                               className="block px-4 py-2 text-white hover:bg-gray-700"
                             >
