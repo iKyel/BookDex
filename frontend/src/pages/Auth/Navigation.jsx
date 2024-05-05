@@ -143,10 +143,16 @@ const Navigation = () => {
                               DashBoard
                             </Link>
                             <Link
-                              to="/admin/booklist"
+                              to="/admin/addbook"
                               className="block px-4 py-2 text-white hover:bg-gray-700"
                             >
-                              Tủ Sách
+                              Thêm Sách
+                            </Link>
+                            <Link
+                              to="/admin/allbooks"
+                              className="block px-4 py-2 text-white hover:bg-gray-700"
+                            >
+                              Tất Cả Sách
                             </Link>
                             <Link
                               to="/admin/demographiclist"

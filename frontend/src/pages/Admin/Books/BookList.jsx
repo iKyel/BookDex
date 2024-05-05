@@ -2,9 +2,9 @@ import { useState } from "react";
 import {
   useUploadBookCoverMutation,
   useCreateBookMutation,
-} from "../../redux/api/bookApiSlice";
-import { useFetchDemographicsQuery } from "../../redux/api/demographicsApiSlice";
-import { useFetchAuthorsQuery } from "../../redux/api/authorApiSlice";
+} from "../../../redux/api/bookApiSlice";
+import { useFetchDemographicsQuery } from "../../../redux/api/demographicsApiSlice";
+import { useFetchAuthorsQuery } from "../../../redux/api/authorApiSlice";
 import { toast } from "react-toastify";
 
 const BookList = () => {
@@ -99,7 +99,7 @@ const BookList = () => {
 
           <div className="mb-4">
             <label className="block text-sm font-bold mb-2 cursor-pointer">
-              {cover ? cover.name : "Chọn File"}
+              {cover ? cover.name : <span className="text-gray-500">Chọn File</span>}
               <input
                 type="file"
                 name="cover"

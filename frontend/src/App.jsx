@@ -20,13 +20,17 @@ import AdminRoute from "./pages/Admin/AdminRoute"
 import UserList from "./pages/Admin/UserList";
 import DemographicList from "./pages/Admin/DemographicList";
 import AuthorList from "./pages/Admin/AuthorList";
-import BookList from "./pages/Admin/BookList";
+
+// Books
+import BookList from "./pages/Admin/Books/BookList";
+import BookUpdate from "./pages/Admin/Books/BookUpdate";
+import AllBooks from "./pages/Admin/Books/AllBooks";
 
 const routes = [
   // Các trang không sử dụng MainLayout
   <Route key="login" path="/login" element={<Login />} />,
   <Route key="register" path="/register" element={<Register />} />,
-  
+
   // Các trang sử dụng MainLayout
   <Route key="main" path="/" element={<MainLayout />}>
     <Route path="" element={<PrivateRoute />}>
@@ -37,7 +41,9 @@ const routes = [
         <Route path="/admin/userlist" element={<UserList />}/>
         <Route path="/admin/demographiclist" element={<DemographicList />}/>
         <Route path="/admin/authorlist" element={<AuthorList />}/>
-        <Route path="/admin/booklist" element={<BookList />}/>
+        <Route path="/admin/addbook" element={<BookList />}/>
+        <Route path="/admin/allbooks" element={<AllBooks />}/>
+        <Route path="/admin/books/update/:id" element={<BookUpdate />}/>
     </Route>
   </Route>,
 ];

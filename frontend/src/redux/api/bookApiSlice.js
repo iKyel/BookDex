@@ -17,6 +17,10 @@ export const bookApiSlice = apiSlice.injectEndpoints({
       providesTags: (result, error, bookId) => [{ type: "Book", id: bookId }],
     }),
 
+    allBooks: builder.query({
+      query: () => `${BOOK_URL}`,
+    }),
+
     createBook: builder.mutation({
       query: (bookData) => ({
         url: `${BOOK_URL}`,
@@ -81,6 +85,7 @@ export const bookApiSlice = apiSlice.injectEndpoints({
 export const {
   useGetBooksQuery,
   useGetBookByIdQuery,
+  useAllBooksQuery,
   useCreateBookMutation,
   useUpdateBookMutation,
   useUploadBookCoverMutation,
