@@ -65,7 +65,6 @@ const BookList = () => {
 
     try {
       const res = await uploadBookCover(formData).unwrap();
-      toast.success(res.message);
       setCover(res.cover);
       setCoverUrl(res.cover);
     } catch (error) {

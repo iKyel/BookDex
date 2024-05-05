@@ -38,12 +38,12 @@ const routes = [
     </Route>
     <Route key="/home" path="/home" element={<Home />} />
     <Route path='/admin' element={<AdminRoute />}>
-        <Route path="/admin/userlist" element={<UserList />}/>
-        <Route path="/admin/demographiclist" element={<DemographicList />}/>
-        <Route path="/admin/authorlist" element={<AuthorList />}/>
-        <Route path="/admin/addbook" element={<BookList />}/>
-        <Route path="/admin/allbooks" element={<AllBooks />}/>
-        <Route path="/admin/books/update/:id" element={<BookUpdate />}/>
+        <Route path="userlist" element={<UserList />}/>
+        <Route path="demographiclist" element={<DemographicList />}/>
+        <Route path="authorlist" element={<AuthorList />}/>
+        <Route path="addbook" element={<BookList />}/>
+        <Route path="allbooks" element={<AllBooks />}/>
+        <Route path="books/:bookId" element={<BookUpdate />}/>
     </Route>
   </Route>,
 ];

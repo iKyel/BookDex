@@ -13,7 +13,7 @@ import { toast } from "react-toastify";
 const AuthorList = () => {
   const { data: authors, refetch, isLoading, error } = useFetchAuthorsQuery();
   const [name, setName] = useState("");
-  const [biography, setBiography] = useState("");
+  const [biography, setBiography] = useState("No Biography");
   const [whereToFind, setWhereToFind] = useState([]);
 
   const [createAuthor] = useCreateAuthorMutation();
@@ -134,7 +134,7 @@ const AuthorList = () => {
             htmlFor="whereToFind"
             className="block font-medium text-gray-700"
           >
-            Nơi có thể tìm thấy tác giả
+            Liên Kết
           </label>
           <input
             type="text"
@@ -175,7 +175,7 @@ const AuthorList = () => {
                   Tiểu sử
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Nơi có thể tìm thấy
+                  Liên Kết
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Hành động

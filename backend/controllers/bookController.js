@@ -55,14 +55,34 @@ const fetchBookById = asyncHandler(async (req, res) => {
 // @access  Private/Admin
 const addBook = asyncHandler(async (req, res) => {
   try {
-    const { name, synopsis, author, cover, demographic, publisher, number_of_pages, price, countInStock } = req.body;
+    const {
+      name,
+      synopsis,
+      author,
+      cover,
+      demographic,
+      publisher,
+      number_of_pages,
+      price,
+      countInStock,
+    } = req.body;
 
     // Validation
     // if (!name || !synopsis || !author || !cover || !demographic || !publisher || !number_of_pages || !price || !countInStock) {
     //   return res.status(400).json({ error: "All fields are required" });
     // }
 
-    const book = new Book({ name, synopsis, author, cover, demographic, publisher, number_of_pages, price, countInStock });
+    const book = new Book({
+      name,
+      synopsis,
+      author,
+      cover,
+      demographic,
+      publisher,
+      number_of_pages,
+      price,
+      countInStock,
+    });
     await book.save();
     res.status(201).json(book);
   } catch (error) {
@@ -76,16 +96,50 @@ const addBook = asyncHandler(async (req, res) => {
 // @access  Private/Admin
 const updateBookDetails = asyncHandler(async (req, res) => {
   try {
-    const { name, synopsis, author, cover, demographic, publisher, number_of_pages, price, countInStock } = req.body;
+    const {
+      name,
+      synopsis,
+      author,
+      cover,
+      demographic,
+      publisher,
+      number_of_pages,
+      price,
+      countInStock,
+    } = req.body;
 
     // Validation
-    if (!name || !synopsis || !author || !cover || !demographic || !publisher || !number_of_pages || !price || !countInStock) {
-      return res.status(400).json({ error: "All fields are required" });
+    const missingFields = [];
+    if (!name) missingFields.push("Tên sách");
+    if (!synopsis) missingFields.push("Tóm tắt nội dung");
+    if (!author) missingFields.push("Tác giả");
+    if (!cover) missingFields.push("Ảnh bìa");
+    if (!demographic) missingFields.push("Phân loại");
+    if (!publisher) missingFields.push("Nhà xuất bản");
+    if (!number_of_pages) missingFields.push("Số trang");
+    if (!price) missingFields.push("Giá");
+    if (!countInStock) missingFields.push("Số lượng tồn kho");
+
+    if (missingFields.length > 0) {
+      const errorMessage = `Trường ${missingFields.join(
+        ", "
+      )} không được bỏ trống`;
+      return res.status(400).json({ error: errorMessage });
     }
 
     const book = await Book.findByIdAndUpdate(
       req.params.id,
-      { name, synopsis, author, cover, demographic, publisher, number_of_pages, price, countInStock },
+      {
+        name,
+        synopsis,
+        author,
+        cover,
+        demographic,
+        publisher,
+        number_of_pages,
+        price,
+        countInStock,
+      },
       { new: true }
     );
 
