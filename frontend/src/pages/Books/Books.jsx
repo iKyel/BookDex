@@ -1,10 +1,14 @@
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../redux/features/cart/cartSlice";
 import HeartIcon from "./components/HeartIcon";
 
 const Books = ({ books }) => {
-  const addToCart = (bookId) => {
-    // Tạm thời chỉ log để minh họa, bạn cần thay đổi hành động này để thêm vào giỏ hàng thực tế
-    console.log(`Thêm sách có ID ${bookId} vào giỏ hàng`);
+  const dispatch = useDispatch();
+  const addToCartHandler = (book, qty) => {
+    dispatch(addToCart({...book, qty}))
+    toast.success(`Thêm sách ${book.name} vào giỏ hàng`);
   };
 
   return (
@@ -36,7 +40,7 @@ const Books = ({ books }) => {
             <div className="p-4">
               <div className="flex justify-between">
                 <button
-                  onClick={() => addToCart(book._id)}
+                  onClick={() => addToCartHandler(book, 1)}
                   className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none flex items-center"
                 >
                   <svg

@@ -15,10 +15,10 @@ const cartSlice = createSlice({
 
       if (existItem) {
         state.cartItems = state.cartItems.map((x) =>
-          x._id === existItem._id ? item : x
+          x._id === existItem._id ? { ...existItem, qty: existItem.qty + action.payload.qty } : x
         );
       } else {
-        state.cartItems = [...state.cartItems, item];
+        state.cartItems = [...state.cartItems, { ...item, qty: action.payload.qty }];
       }
       return updateCart(state, item);
     },

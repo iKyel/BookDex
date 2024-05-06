@@ -8,9 +8,13 @@ const Cart = () => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
+  console.log(cartItems)
 
   const addToCartHandler = (product, qty) => {
-    const updatedQty = product.countInStock > 0 && qty <= product.countInStock ? qty : product.countInStock;
+    const updatedQty =
+      product.countInStock > 0 && qty <= product.countInStock
+        ? qty
+        : product.countInStock;
     dispatch(addToCart({ ...product, qty: updatedQty }));
   };
   const removeFromCartHandler = (id) => {
@@ -31,9 +35,12 @@ const Cart = () => {
       {cartItems.length === 0 ? (
         <div className="text-center">
           <p>Giỏ hàng của bạn đang trống</p>
-          <Link to="/home" className="btn btn-primary mt-4">
+          <button
+            onClick={() => navigate("/home")}
+            className="text-white btn btn-primary mt-4 bg-blue-500 hover:from-green-500 hover:to-blue-600 hover:text-white px-6 py-3 rounded-lg"
+          >
             Tiếp tục mua sắm
-          </Link>
+          </button>
         </div>
       ) : (
         <div>
@@ -57,7 +64,12 @@ const Cart = () => {
                         alt={item.name}
                         className="w-16  object-contain mr-4"
                       />
-                      <Link to={`/books/${item._id}`}>{item.name}</Link>
+                      <Link
+                        to={`/books/${item._id}`}
+                        className="text-blue-500 hover:underline"
+                      >
+                        {item.name}
+                      </Link>
                     </td>
                     <td className="px-4 py-2">{item.price} đ</td>
                     <td className="px-4 py-2">
@@ -78,7 +90,9 @@ const Cart = () => {
                         </button>
                       </div>
                     </td>
-                    <td className="px-4 py-2">{(item.price * item.qty).toLocaleString()} đ</td>
+                    <td className="px-4 py-2">
+                      {(item.price * item.qty).toLocaleString()} đ
+                    </td>
                     <td className="px-4 py-2">
                       <button
                         onClick={() => removeFromCartHandler(item._id)}

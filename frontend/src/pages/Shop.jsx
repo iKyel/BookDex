@@ -79,7 +79,7 @@ const Shop = () => {
             <option value="">All Prices</option>
             <option value="0-100">$0 - $100</option>
             <option value="10-200">$100 - $200</option>
-            <option value="20-">Over $200</option>
+            <option value="200-">Over $200</option>
             {/* Thêm các tùy chọn giá khác nếu cần */}
           </select>
         </div>
