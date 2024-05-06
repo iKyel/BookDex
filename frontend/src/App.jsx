@@ -2,7 +2,8 @@ import {
   RouterProvider,
   Route,
   createBrowserRouter,
-  createRoutesFromChildren,
+  createRoutesFromElements,
+  createRoutesFromChildren
 } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
@@ -27,8 +28,8 @@ import BookUpdate from "./pages/Admin/Books/BookUpdate";
 import AllBooks from "./pages/Admin/Books/AllBooks";
 import FavoriteBooks from "./pages/Books/FavoriteBooks";
 
+
 const routes = [
-  
   // Các trang không sử dụng MainLayout
   <Route key="login" path="/login" element={<Login />} />,
   <Route key="register" path="/register" element={<Register />} />,

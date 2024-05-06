@@ -6,37 +6,8 @@ import { Link } from "react-router-dom";
 import HeartIcon from "./components/HeartIcon";
 
 const TopBooks = () => {
-  //   const [authorName, setAuthorName] = useState("");
   const { data: topBooks, isLoading: isLoadingTopBooks } =
     useGetTopBooksQuery();
-  // Lấy tên tác giả từ mảng topBooks và fetch chi tiết tác giả
-  //   useEffect(() => {
-  //     const fetchAuthorNames = async () => {
-  //       const authorNames = {};
-
-  //       for (const book of topBooks) {
-  //         const authorId = book.author;
-
-  //         if (!authorName[authorId]) {
-  //           try {
-  //             const response = await axios.get(`${AUTHOR_URL}/${authorId}`);
-  //             authorNames[authorId] = response.data.name;
-  //           } catch (error) {
-  //             console.error("Error fetching author details:", error);
-  //             authorNames[authorId] = "Author not found";
-  //           }
-  //         } else {
-  //           authorNames[authorId] = authorName[authorId];
-  //         }
-  //       }
-
-  //       setAuthorName(authorNames);
-  //     };
-
-  //     if (topBooks) {
-  //       fetchAuthorNames();
-  //     }
-  //   }, [topBooks, authorName]);
 
   const addToCart = (bookId) => {
     // Tạm thời chỉ log để minh họa, bạn cần thay đổi hành động này để thêm vào giỏ hàng thực tế
