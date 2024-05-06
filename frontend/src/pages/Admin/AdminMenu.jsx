@@ -8,7 +8,7 @@ const AdminMenu = () => {
 
   return (
     <div className="top-0 left-0 w-full z-50">
-      <div className="bg-gray-800 px-4 py-2 flex justify-between items-center">
+      <div className="bg-gray-800 px-10 py-2 flex justify-between items-center">
         <div className="text-white font-bold text-xl">Admin Menu</div>
         <button
           className="text-white focus:outline-none"

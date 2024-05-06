@@ -29,6 +29,10 @@ export const demographicApiSlice = apiSlice.injectEndpoints({
     fetchDemographics: builder.query({
       query: () => `${DEMOGRAPHIC_URL}/listdemographics`,
     }),
+
+    fetchDemographicDetails: builder.query({
+      query: (demographicId) => `${DEMOGRAPHIC_URL}/${demographicId}`,
+    }),
   }),
 });
 
@@ -37,4 +41,5 @@ export const {
   useUpdateDemographicMutation,
   useDeleteDemographicMutation,
   useFetchDemographicsQuery,
+  useFetchDemographicDetailsQuery,
 } = demographicApiSlice;

@@ -1,10 +1,16 @@
-import { FaSearch, FaShoppingCart, FaMapMarkerAlt } from "react-icons/fa";
+import {
+  FaSearch,
+  FaShoppingCart,
+  FaMapMarkerAlt,
+  FaHeart,
+} from "react-icons/fa";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import FavoritesCount from "../pages/Books/components/FavoritesCount";
 
 import { useSelector, useDispatch } from "react-redux";
-import { useLogoutMutation } from "../../redux/api/usersApiSlice";
-import { logout } from "../../redux/features/auth/authSlice";
+import { useLogoutMutation } from "../redux/api/usersApiSlice";
+import { logout } from "../redux/features/auth/authSlice";
 
 const Navigation = () => {
   const { userInfo } = useSelector((state) => state.auth);
@@ -131,7 +137,7 @@ const Navigation = () => {
                         <>
                           <div className="absolute right-0 mt-5 w-36 bg-[#282A36] shadow-lg rounded-md overflow-hidden z-10">
                             <Link
-                              to="/admin/profile"
+                              to="/profile"
                               className="block px-4 py-2 text-white hover:bg-gray-700"
                             >
                               Tài Khoản
@@ -156,6 +162,14 @@ const Navigation = () => {
             <a href="#" className="hover:text-gray-300">
               <FaShoppingCart className="h-5 w-5" />
             </a>
+            <Link to={`/favorite`} className="flex">
+              <a href="#" className="hover:text-gray-300">
+                <FaHeart className="h-5 w-5" />
+              </a>
+              <div className="relative">
+                <FavoritesCount />
+              </div>
+            </Link>
           </div>
         </div>
       </div>

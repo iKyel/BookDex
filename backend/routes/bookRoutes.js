@@ -36,7 +36,7 @@ router.route("/filter").post(filterBooks);
 router.route("/:id").get(fetchBookById);
 
 // PUT /api/books/:id - Cập nhật thông tin của một sách, yêu cầu xác thực và quyền quản trị viên
-router.route("/:id").put(authenticate, authorizeAdmin, updateBookDetails);
+router.route("/update/:id").put(authenticate, authorizeAdmin, updateBookDetails);
 
 // DELETE /api/books/:id - Xóa một sách, yêu cầu xác thực và quyền quản trị viên
 router.route("/:id").delete(authenticate, authorizeAdmin, removeBook);

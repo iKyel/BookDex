@@ -1,4 +1,4 @@
-import Navigation from "../Auth/Navigation"
+import Navigation from "../../components/Navigation"
 import { Outlet } from "react-router"
 
 const MainLayout = () => {

@@ -32,7 +32,7 @@ export const bookApiSlice = apiSlice.injectEndpoints({
 
     updateBook: builder.mutation({
       query: ({ bookId, updatedBook }) => ({
-        url: `${BOOK_URL}/${bookId}`,
+        url: `${BOOK_URL}/update/${bookId}`,
         method: "PUT",
         body: updatedBook,
       }),

@@ -89,7 +89,7 @@ const DemographicList = () => {
   return (
     <div>
       <AdminMenu />
-      <div className="container mx-auto p-8">
+      <div className="max-w-7xl mx-auto p-8">
         <h1 className="text-2xl font-bold mb-4">Danh sách phân loại</h1>
         <form onSubmit={handleCreateDemographic} className="mb-4">
           <input
