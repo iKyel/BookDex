@@ -27,6 +27,9 @@ import BookList from "./pages/Admin/Books/BookList";
 import BookUpdate from "./pages/Admin/Books/BookUpdate";
 import AllBooks from "./pages/Admin/Books/AllBooks";
 import FavoriteBooks from "./pages/Books/FavoriteBooks";
+import BookDetails from "./pages/Books/BookDetails";
+import Cart from "./pages/Cart";
+import Shop from "./pages/Shop";
 
 
 const routes = [
@@ -41,6 +44,9 @@ const routes = [
     </Route>
     <Route key="/home" path="/home" element={<Home />} />
     <Route path="/favorite" element={<FavoriteBooks />}/>
+    <Route path="/books/:id" element={<BookDetails />}/>
+    <Route path="/cart" element={<Cart />}/>
+    <Route path="/shop" element={<Shop />}/>
     <Route path='/admin' element={<AdminRoute />}>
         <Route path="userlist" element={<UserList />}/>
         <Route path="demographiclist" element={<DemographicList />}/>

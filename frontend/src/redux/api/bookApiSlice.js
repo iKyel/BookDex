@@ -73,10 +73,10 @@ export const bookApiSlice = apiSlice.injectEndpoints({
     }),
 
     getFilteredBooks: builder.query({
-      query: ({ author, demographic }) => ({
+      query: ({ author, demographic, price }) => ({
         url: `${BOOK_URL}/filter`,
         method: "POST",
-        body: { author, demographic },
+        body: { author, demographic, price },
       }),
     }),
   }),

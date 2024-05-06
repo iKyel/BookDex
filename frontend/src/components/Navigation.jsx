@@ -7,6 +7,7 @@ import {
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import FavoritesCount from "../pages/Books/components/FavoritesCount";
+import CartCount from "../pages/Books/components/CartCount";
 
 import { useSelector, useDispatch } from "react-redux";
 import { useLogoutMutation } from "../redux/api/usersApiSlice";
@@ -156,17 +157,25 @@ const Navigation = () => {
                 </div>
               </button>
             </div>
-            <a href="#" className="hover:text-gray-300">
-              Orders
-            </a>
-            <a href="#" className="hover:text-gray-300">
-              <FaShoppingCart className="h-5 w-5" />
-            </a>
+            <Link to={`/shop`}>
+              <a href="#" className="hover:text-gray-300">
+                Shop
+              </a>
+            </Link>
+
+            <Link to={`/cart`} className="flex">
+              <a href="#" className="hover:text-gray-300">
+                <FaShoppingCart className="h-5 w-5" />
+              </a>
+              <div className="">
+                <CartCount />
+              </div>
+            </Link>
             <Link to={`/favorite`} className="flex">
               <a href="#" className="hover:text-gray-300">
                 <FaHeart className="h-5 w-5" />
               </a>
-              <div className="relative">
+              <div className="">
                 <FavoritesCount />
               </div>
             </Link>

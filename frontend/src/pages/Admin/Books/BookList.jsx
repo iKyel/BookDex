@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import AdminMenu from "../AdminMenu";
@@ -26,10 +26,14 @@ const BookList = () => {
   const [uploadBookCover] = useUploadBookCoverMutation();
   const [createBook] = useCreateBookMutation();
   const { data: demographics } = useFetchDemographicsQuery();
-  const { data: authors } = useFetchAuthorsQuery();
+  const { data: authors, refetch} = useFetchAuthorsQuery();
 
   const [searchedAuthors, setSearchedAuthors] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false); // New state
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
 
   const navigate = useNavigate();
 

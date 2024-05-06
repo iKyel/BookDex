@@ -224,7 +224,7 @@ const addBookReview = asyncHandler(async (req, res) => {
 // @access  Public
 const fetchTopBooks = asyncHandler(async (req, res) => {
   try {
-    const books = await Book.find({}).sort({ rating: -1 }).limit(4);
+    const books = await Book.find({}).sort({ rating: -1 }).limit(20);
     res.json(books);
   } catch (error) {
     console.error(error);
@@ -250,11 +250,18 @@ const fetchNewBooks = asyncHandler(async (req, res) => {
 // @access  Public
 const filterBooks = asyncHandler(async (req, res) => {
   try {
-    const { author, demographic } = req.body;
+    const { author, demographic, price } = req.body;
 
     let args = {};
     if (author) args.author = author;
     if (demographic) args.demographic = demographic;
+    if (price) {
+      const [minPrice, maxPrice] = price.split("-");
+      args.price = {
+        $gte: Number(minPrice) || 0,
+        $lte: Number(maxPrice) || Infinity,
+      };
+    }
 
     const books = await Book.find(args);
     res.json(books);
