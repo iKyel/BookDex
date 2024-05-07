@@ -19,7 +19,7 @@ const Books = ({ books }) => {
         {books.map((book) => (
           <div
             key={book._id}
-            className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col h-full"
+            className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col h-full transition duration-300 transform hover:scale-105"
           >
             <div className="flex-grow">
               <img

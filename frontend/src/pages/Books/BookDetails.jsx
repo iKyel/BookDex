@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
@@ -13,6 +13,8 @@ import HeartIcon from "./components/HeartIcon";
 import Ratings from "./components/Rating";
 import { addToCart } from "../../redux/features/cart/cartSlice";
 import AdminMenu from "../Admin/AdminMenu";
+import { useFetchAuthorDetailsQuery } from "../../redux/api/authorApiSlice";
+import { useFetchDemographicDetailsQuery } from "../../redux/api/demographicsApiSlice";
 
 const BookDetails = () => {
   const { id: bookId } = useParams();
@@ -22,8 +24,26 @@ const BookDetails = () => {
   const [qty, setQty] = useState(1);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
+  const [authorName, setAuthorName] = useState("");
+  const [demographicName, setDemographicName] = useState("");
 
   const { data: book, isLoading, refetch, error } = useGetBookByIdQuery(bookId);
+  const { data: author } = useFetchAuthorDetailsQuery(book && book.author);
+  const { data: demographic } = useFetchDemographicDetailsQuery(
+    book && book.demographic
+  );
+
+  useEffect(() => {
+    if (author) {
+      setAuthorName(author.name);
+    }
+  }, [author]);
+
+  useEffect(() => {
+    if (demographic) {
+      setDemographicName(demographic.name);
+    }
+  }, [demographic]);
 
   const { userInfo } = useSelector((state) => state.auth);
   const [createReview, { isLoading: loadingBookReview }] =
@@ -95,7 +115,10 @@ const BookDetails = () => {
                 </p>
                 <p className="text-gray-600 mb-4">{book.synopsis}</p>
                 <p className="text-gray-600 mb-2">
-                  <strong>Tác giả:</strong> {book.author}
+                  <strong>Tác giả:</strong> <Link to={`/books/author/${book.author}`} className="text-blue-500 hover:text-blue-600">{authorName}</Link> 
+                </p>
+                <p className="text-gray-600 mb-2">
+                  <strong>Thể loại::</strong> {demographicName}
                 </p>
                 <p className="text-gray-600 mb-2">
                   <strong>Nhà xuất bản: </strong>
@@ -128,12 +151,11 @@ const BookDetails = () => {
                   <strong>Tồn kho:</strong>{" "}
                   {book.countInStock > 0 ? (
                     <span className="text-green-500">
-                      
                       Còn hàng
                       <>
-                        {userInfo && userInfo.isAdmin && (
-                          ` (${book.countInStock} có sẵn)`
-                        )}
+                        {userInfo &&
+                          userInfo.isAdmin &&
+                          ` (${book.countInStock} có sẵn)`}
                       </>
                     </span>
                   ) : (

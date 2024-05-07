@@ -7,6 +7,7 @@ import {
   fetchBooks,
   fetchBooksAdmin,
   fetchBookById,
+  fetchBooksByAuthor,
   addBook,
   updateBookDetails,
   removeBook,
@@ -23,6 +24,9 @@ router.route("/").get(fetchBooks);
 
 // GET /api/books/admin - Lấy danh sách tất cả sách với quyền admin
 router.route("/admin").get(authenticate, authorizeAdmin, fetchBooksAdmin);
+
+// GET /api/books/author/:authorId - Lấy danh sách tất cả sách của 1 author
+router.route("/author/:authorId").get(fetchBooksByAuthor);
 
 // POST /api/books - Tạo mới sách, yêu cầu xác thực và quyền quản trị viên
 router.route("/").post(authenticate, authorizeAdmin, addBook);

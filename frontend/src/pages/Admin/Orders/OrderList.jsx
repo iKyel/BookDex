@@ -44,7 +44,7 @@ const OrderList = () => {
                     <td className="px-4 py-2">
                       {order.createdAt.substring(0, 10)}
                     </td>
-                    <td className="px-4 py-2">${order.totalPrice}</td>
+                    <td className="px-4 py-2">{order.totalPrice}đ</td>
                     <td className="px-4 py-2">
                       {order.isPaid ? (
                         order.paidAt.substring(0, 10)

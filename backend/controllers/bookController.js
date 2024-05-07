@@ -76,6 +76,26 @@ const fetchBookById = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Fetch books by author
+// @route   GET /api/books/author/:authorId
+// @access  Public
+const fetchBooksByAuthor = asyncHandler(async (req, res) => {
+  try {
+    const authorId = req.params.authorId;
+
+    const books = await Book.find({ author: authorId });
+
+    if (books.length === 0) {
+      return res.status(404).json({ message: "Books by this author not found" });
+    }
+
+    res.json(books);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server Error" });
+  }
+});
+
 // @desc    Create a book
 // @route   POST /api/books
 // @access  Private/Admin
@@ -320,6 +340,7 @@ export {
   fetchBooks,
   fetchBooksAdmin,
   fetchBookById,
+  fetchBooksByAuthor,
   addBook,
   updateBookDetails,
   removeBook,
