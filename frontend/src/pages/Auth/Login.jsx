@@ -149,6 +149,17 @@ const Login = () => {
                 </Link>
               </p>
             </div>
+            <div className="flex justify-center text-sm text-gray-600">
+              <p>
+                Quay về trang chủ?{" "}
+                <Link
+                  to="/home"
+                  className="font-medium text-blue-600 hover:text-blue-500"
+                >
+                  Trang chủ
+                </Link>
+              </p>
+            </div>
           </form>
         </div>
       </div>

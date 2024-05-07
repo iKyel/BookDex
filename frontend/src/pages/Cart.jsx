@@ -87,20 +87,7 @@ const Cart = () => {
                       </td>
                       <td className="px-6 py-4">
                         <div className="flex items-center">
-                          <button
-                            onClick={() => addToCartHandler(item, item.qty - 1)}
-                            disabled={item.qty === 1}
-                            className="bg-gray-200 text-gray-700 hover:bg-gray-300 rounded-l-md px-2 py-1 disabled:opacity-50 disabled:cursor-not-allowed"
-                          >
-                            -
-                          </button>
                           <span className="mx-2 text-gray-700">{item.qty}</span>
-                          <button
-                            onClick={() => addToCartHandler(item, item.qty + 1)}
-                            className="bg-gray-200 text-gray-700 hover:bg-gray-300 rounded-r-md px-2 py-1"
-                          >
-                            +
-                          </button>
                         </div>
                       </td>
                       <td className="px-6 py-4 text-gray-700">
