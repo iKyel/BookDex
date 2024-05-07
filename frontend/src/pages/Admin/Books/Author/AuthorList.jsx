@@ -50,7 +50,7 @@ const AuthorList = () => {
         toast.error(result.error);
       } else {
         setName("");
-        setBiography("");
+        setBiography("No Biography");
         setWhereToFind([]);
         toast.success(`${result.name} đã được tạo.`);
         refetch();

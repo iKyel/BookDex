@@ -276,7 +276,7 @@ const fetchNewBooks = asyncHandler(async (req, res) => {
 // @access  Public
 const filterBooks = asyncHandler(async (req, res) => {
   try {
-    const { author, demographic, price, name } = req.body;
+    const { author, demographic, price, name, sortOrder } = req.body;
 
     let args = {};
     if (author) args.author = author;
@@ -288,11 +288,23 @@ const filterBooks = asyncHandler(async (req, res) => {
         $lte: Number(maxPrice) || Infinity,
       };
     }
+
+    let sortOption = {};
+    if (sortOrder === "descending") {
+      sortOption.price = -1; // Sắp xếp theo giá từ cao đến thấp
+    } else if (sortOrder === "ascending") {
+      sortOption.price = 1; // Sắp xếp theo giá từ thấp đến cao
+    } else if (sortOrder === "alphabetical") {
+      sortOption.name = 1; // Sắp xếp theo tên alphabet
+    } else if (sortOrder === "reverse_alphabetical") {
+      sortOption.name = -1; // Sắp xếp theo tên alphabet
+    }
+
     if (name) {
       args.name = { $regex: name, $options: "i" };
     }
 
-    const books = await Book.find(args);
+    const books = await Book.find(args).sort(sortOption);
     res.json(books);
   } catch (error) {
     console.error(error);

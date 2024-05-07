@@ -128,7 +128,13 @@ const BookDetails = () => {
                   <strong>Tồn kho:</strong>{" "}
                   {book.countInStock > 0 ? (
                     <span className="text-green-500">
-                      {book.countInStock} có sẵn
+                      
+                      Còn hàng
+                      <>
+                        {userInfo && userInfo.isAdmin && (
+                          ` (${book.countInStock} có sẵn)`
+                        )}
+                      </>
                     </span>
                   ) : (
                     <span className="text-red-500">Hết hàng</span>

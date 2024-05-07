@@ -88,13 +88,13 @@ const BookUpdate = () => {
 
       if (data.error) {
         toast.error(
-          "Thêm sách không thành công do dữ liệu lỗi. Vui lòng thử lại."
+          "Sửa sách không thành công do dữ liệu lỗi. Vui lòng thử lại."
         );
       } else {
-        toast.success(`${data.name} đã được tạo thành công`);
+        toast.success(`${data.name} đã được sửa thành công`);
         // Redirect or handle success action here
       }
-      navigate("/admin/allbooks");
+      navigate("/home");
     } catch (error) {
       console.error(error);
       toast.error("Thêm sách không thành công. Vui lòng thử lại.");

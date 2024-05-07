@@ -8,6 +8,7 @@ const initialState = {
     demographics: [],
     authors: [],
     publishers: [],
+    sortOrder: "ascending",
   },
 };
 
@@ -33,6 +34,9 @@ const shopSlice = createSlice({
     setPublisherFilter: (state, action) => {
       state.filters.publishers = action.payload;
     },
+    setSortOrder: (state, action) => { //
+      state.filters.sortOrder = action.payload;
+    },
   },
 });
 
@@ -43,6 +47,7 @@ export const {
   setDemographicFilter,
   setAuthorFilter,
   setPublisherFilter,
+  setSortOrder
 } = shopSlice.actions;
 
 export default shopSlice.reducer;

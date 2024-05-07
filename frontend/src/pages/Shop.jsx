@@ -6,6 +6,7 @@ import Books from "./Books/Books";
 import {
   setDemographicFilter,
   setPriceFilter,
+  setSortOrder,
 } from "../redux/features/shop/shopSlice";
 import AdminMenu from "./Admin/AdminMenu";
 
@@ -14,6 +15,8 @@ const Shop = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentDemographic, setCurrentDemographic] = useState("");
   const [currentPrice, setCurrentPrice] = useState("");
+  const [sortOrder, setSortOrder] = useState("ascending");
+
   const { data: demographics } = useFetchDemographicsQuery();
 
   const priceFilter = useSelector((state) => state.shop.filters.price);
@@ -25,6 +28,7 @@ const Shop = () => {
     demographic: currentDemographic,
     price: currentPrice,
     name: searchTerm,
+    sortOrder,
   });
 
   const handleSearch = (e) => {
@@ -41,6 +45,12 @@ const Shop = () => {
     const selectedPrice = e.target.value;
     setCurrentPrice(selectedPrice);
     dispatch(setPriceFilter([selectedPrice]));
+  };
+
+  const handleSortOrderChange = (e) => {
+    const selectedSortOrder = e.target.value;
+    setSortOrder(selectedSortOrder);
+    dispatch(setSortOrder(selectedSortOrder));
   };
 
   if (isLoading) {
@@ -84,6 +94,19 @@ const Shop = () => {
               <option value="50000-200000">50000đ - 200000đ</option>
               <option value="200000-">Trên 200000đ</option>
               {/* Thêm các tùy chọn giá khác nếu cần */}
+            </select>
+          </div>
+          <div>
+            <select
+              id="sort-order"
+              value={sortOrder}
+              onChange={handleSortOrderChange}
+              className="border border-gray-300 rounded-md px-2 py-1 focus:outline-none w-full"
+            >
+              <option value="ascending">Giá: Thấp đến cao</option>
+              <option value="descending">Giá: Cao đến thấp</option>
+              <option value="alphabetical">Tên: A đến Z</option>reverse_alphabetical
+              <option value="reverse_alphabetical">Tên: Z đến A</option>
             </select>
           </div>
           <input
