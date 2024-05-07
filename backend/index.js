@@ -11,6 +11,7 @@ import demographicRoutes from "./routes/demographicRoutes.js";
 import authorRoutes from "./routes/authorRoutes.js";
 import bookRoutes from "./routes/bookRoutes.js"
 import uploadRoutes from "./routes/uploadRoutes.js"
+import orderRoutes from "./routes/orderRoutes.js"
 // import productRoutes from "./routes/productRoutes.js";
 // import uploadRoutes from "./routes/uploadRoutes.js";
 // import orderRoutes from "./routes/orderRoutes.js";
@@ -32,6 +33,7 @@ app.use("/api/demographics", demographicRoutes);
 app.use("/api/authors", authorRoutes);
 app.use("/api/books", bookRoutes);
 app.use("/api/uploads", uploadRoutes)
+app.use("/api/orders", orderRoutes)
 
 const __dirname = path.resolve();
 app.use("/uploads", express.static(path.join(__dirname + "/uploads")));
