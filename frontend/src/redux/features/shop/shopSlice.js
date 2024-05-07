@@ -8,7 +8,7 @@ const initialState = {
     demographics: [],
     authors: [],
     publishers: [],
-    sortOrder: "ascending",
+    sortOrder: "ascending_price",
   },
 };
 

@@ -95,7 +95,7 @@ const BookDetails = () => {
                 </p>
                 <p className="text-gray-600 mb-4">{book.synopsis}</p>
                 <p className="text-gray-600 mb-2">
-                  <strong>Tác giả:</strong> {book.author.name}
+                  <strong>Tác giả:</strong> {book.author}
                 </p>
                 <p className="text-gray-600 mb-2">
                   <strong>Nhà xuất bản: </strong>

@@ -290,14 +290,18 @@ const filterBooks = asyncHandler(async (req, res) => {
     }
 
     let sortOption = {};
-    if (sortOrder === "descending") {
+    if (sortOrder === "descending_price") {
       sortOption.price = -1; // Sắp xếp theo giá từ cao đến thấp
-    } else if (sortOrder === "ascending") {
+    } else if (sortOrder === "ascending_price") {
       sortOption.price = 1; // Sắp xếp theo giá từ thấp đến cao
     } else if (sortOrder === "alphabetical") {
       sortOption.name = 1; // Sắp xếp theo tên alphabet
     } else if (sortOrder === "reverse_alphabetical") {
       sortOption.name = -1; // Sắp xếp theo tên alphabet
+    } else if (sortOrder === "descending_rating") {
+      sortOption.rating = 1;
+    } else if (sortOrder === "ascending_rating") {
+      sortOption.rating = -1;
     }
 
     if (name) {

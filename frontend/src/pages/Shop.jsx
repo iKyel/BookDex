@@ -65,6 +65,13 @@ const Shop = () => {
     <>
       <AdminMenu />
       <div className="max-w-7xl mx-auto px-4 py-8">
+        <input
+          type="text"
+          placeholder="Tìm kiếm theo tên"
+          value={searchTerm}
+          onChange={handleSearch}
+          className="border border-gray-300 rounded-md px-2 py-1 focus:outline-none w-full mb-4"
+        />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <div>
             <select
@@ -90,7 +97,7 @@ const Shop = () => {
               className="border border-gray-300 rounded-md px-2 py-1 focus:outline-none w-full"
             >
               <option value="">Tất cả giá</option>
-              <option value="0-50000đ">0đ - 50000đ</option>
+              <option value="0-50000">0đ - 50000đ</option>
               <option value="50000-200000">50000đ - 200000đ</option>
               <option value="200000-">Trên 200000đ</option>
               {/* Thêm các tùy chọn giá khác nếu cần */}
@@ -103,19 +110,14 @@ const Shop = () => {
               onChange={handleSortOrderChange}
               className="border border-gray-300 rounded-md px-2 py-1 focus:outline-none w-full"
             >
-              <option value="ascending">Giá: Thấp đến cao</option>
-              <option value="descending">Giá: Cao đến thấp</option>
-              <option value="alphabetical">Tên: A đến Z</option>reverse_alphabetical
+              <option value="ascending_price">Giá: Thấp đến cao</option>
+              <option value="descending_price">Giá: Cao đến thấp</option>
+              <option value="alphabetical">Tên: A đến Z</option>
               <option value="reverse_alphabetical">Tên: Z đến A</option>
+              <option value="ascending_rating">Rating: cao đến thấp</option>
+              <option value="descending_rating">Rating: thấp đến cao</option>F
             </select>
           </div>
-          <input
-            type="text"
-            placeholder="Tìm kiếm theo tên"
-            value={searchTerm}
-            onChange={handleSearch}
-            className="border border-gray-300 rounded-md px-2 py-1 focus:outline-none w-full"
-          />
         </div>
         <Books books={books} />
       </div>

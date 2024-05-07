@@ -156,7 +156,7 @@ const Navigation = () => {
             <div>
               <button onClick={toggleMenu}>
                 {userInfo ? (
-                  <span className="text-white">{userInfo.username}</span>
+                  <span className="text-white font-bold">{userInfo.username}</span>
                 ) : (
                   <></>
                 )}
