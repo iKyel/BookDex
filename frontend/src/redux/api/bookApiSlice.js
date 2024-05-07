@@ -21,6 +21,10 @@ export const bookApiSlice = apiSlice.injectEndpoints({
       query: () => `${BOOK_URL}`,
     }),
 
+    allBooksAdmin: builder.query({
+      query: () => `${BOOK_URL}/admin`,
+    }),
+
     createBook: builder.mutation({
       query: (bookData) => ({
         url: `${BOOK_URL}`,
@@ -73,10 +77,10 @@ export const bookApiSlice = apiSlice.injectEndpoints({
     }),
 
     getFilteredBooks: builder.query({
-      query: ({ author, demographic, price }) => ({
+      query: ({ author, demographic, price, name }) => ({
         url: `${BOOK_URL}/filter`,
         method: "POST",
-        body: { author, demographic, price },
+        body: { author, demographic, price, name },
       }),
     }),
   }),
@@ -86,6 +90,7 @@ export const {
   useGetBooksQuery,
   useGetBookByIdQuery,
   useAllBooksQuery,
+  useAllBooksAdminQuery,
   useCreateBookMutation,
   useUpdateBookMutation,
   useUploadBookCoverMutation,

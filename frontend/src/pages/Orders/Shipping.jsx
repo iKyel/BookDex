@@ -38,11 +38,11 @@ const Shipping = () => {
   return (
     <div className="max-w-3xl mx-auto py-8">
       <ProgressSteps step1 step2 />
-      <h1 className="text-3xl font-bold mb-6">Shipping Address</h1>
+      <h1 className="text-3xl font-bold mb-6">Địa Chỉ Giao Hàng</h1>
       <form onSubmit={submitHandler} className="space-y-4">
         <div>
           <label htmlFor="address" className="block font-medium text-gray-700">
-            Address
+            Địa Chỉ
           </label>
           <input
             type="text"
@@ -56,7 +56,7 @@ const Shipping = () => {
         <div className="flex space-x-4">
           <div className="w-1/2">
             <label htmlFor="city" className="block font-medium text-gray-700">
-              City
+              Thành Phố
             </label>
             <input
               type="text"
@@ -72,7 +72,7 @@ const Shipping = () => {
               htmlFor="postalCode"
               className="block font-medium text-gray-700"
             >
-              Postal Code
+              Mã Bưu Chính
             </label>
             <input
               type="text"
@@ -86,7 +86,7 @@ const Shipping = () => {
         </div>
         <div>
           <label htmlFor="country" className="block font-medium text-gray-700">
-            Country
+            Quốc Gia
           </label>
           <input
             type="text"
@@ -102,7 +102,7 @@ const Shipping = () => {
             htmlFor="paymentMethod"
             className="block font-medium text-gray-700"
           >
-            Payment Method
+            Phương Thức Thanh Toán
           </label>
           <select
             id="paymentMethod"
@@ -118,7 +118,7 @@ const Shipping = () => {
           type="submit"
           className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md"
         >
-          Continue to Payment
+          Tiếp Tục Thanh Toán
         </button>
       </form>
     </div>

@@ -15,7 +15,7 @@ const OrderList = () => {
     <AdminMenu />
     <div className="max-w-7xl mx-auto py-8">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">Orders</h1>
+        <h1 className="text-3xl font-bold">Đơn Hàng</h1>
       </div>
       {isLoading ? (
         <Loader />
@@ -28,11 +28,11 @@ const OrderList = () => {
               <thead>
                 <tr className="bg-gray-100">
                   <th className="px-4 py-2">ID</th>
-                  <th className="px-4 py-2">USER</th>
-                  <th className="px-4 py-2">DATE</th>
-                  <th className="px-4 py-2">TOTAL</th>
-                  <th className="px-4 py-2">PAID</th>
-                  <th className="px-4 py-2">DELIVERED</th>
+                  <th className="px-4 py-2">NGƯỜI DÙNG</th>
+                  <th className="px-4 py-2">NGÀY</th>
+                  <th className="px-4 py-2">TỔNG</th>
+                  <th className="px-4 py-2">ĐÃ THANH TOÁN</th>
+                  <th className="px-4 py-2">ĐÃ GIAO</th>
                   <th className="px-4 py-2"></th>
                 </tr>
               </thead>
@@ -49,14 +49,14 @@ const OrderList = () => {
                       {order.isPaid ? (
                         order.paidAt.substring(0, 10)
                       ) : (
-                        <span className="text-red-500">Not Paid</span>
+                        <span className="text-red-500">Chưa Thanh Toán</span>
                       )}
                     </td>
                     <td className="px-4 py-2">
                       {order.isDelivered ? (
                         order.deliveredAt.substring(0, 10)
                       ) : (
-                        <span className="text-red-500">Not Delivered</span>
+                        <span className="text-red-500">Chưa Giao</span>
                       )}
                     </td>
                     <td className="px-4 py-2">
@@ -64,7 +64,7 @@ const OrderList = () => {
                         to={`/order/${order._id}`}
                         className="bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded-md mr-2"
                       >
-                        Details
+                        Chi Tiết
                       </Link>
                     </td>
                   </tr>

@@ -40,14 +40,14 @@ const BookDetails = () => {
       }).unwrap();
       setRating(0);
       setComment("");
-      toast.success("Review submitted successfully");
+      toast.success("Đánh giá được gửi thành công");
       refetch();
     } catch (err) {
       toast.error("Bạn đã đánh giá quyển sách này rồi!");
     }
   };
 
-  const addToCardHandler = () => {
+  const addToCartHandler = () => {
     dispatch(addToCart({ ...book, qty }));
     navigate("/cart");
   };
@@ -69,6 +69,23 @@ const BookDetails = () => {
                   alt={book.name}
                   className="w-full h-auto"
                 />
+                <Link to={`/admin/books/update/${book._id}`}>
+                  <button className="text-sm text-gray-600 hover:text-gray-900 focus:outline-none">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-4 h-4 inline-block mr-1"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M14.707 4.293a1 1 0 0 1 1.414 1.414L6.414 15.414a1 1 0 0 1-1.414-1.414L14.707 4.293zm1.414 1.414L5.707 16.707a1 1 0 1 1-1.414-1.414L15.707 4.293a1 1 0 1 1 1.414 1.414z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    Chỉnh sửa
+                  </button>
+                </Link>
               </div>
               <div className="w-2/3 p-8">
                 <h2 className="text-3xl font-bold mb-4">{book.name}</h2>
@@ -78,10 +95,10 @@ const BookDetails = () => {
                 </p>
                 <p className="text-gray-600 mb-4">{book.synopsis}</p>
                 <p className="text-gray-600 mb-2">
-                  <strong>Author:</strong> {book.author.name}
+                  <strong>Tác giả:</strong> {book.author.name}
                 </p>
                 <p className="text-gray-600 mb-2">
-                  <strong>Publisher: </strong>
+                  <strong>Nhà xuất bản: </strong>
                   <a
                     href={book.publisher}
                     className="text-blue-500 hover:text-blue-600"
@@ -92,35 +109,35 @@ const BookDetails = () => {
                   </a>
                 </p>
                 <p className="text-gray-600 mb-2">
-                  <strong>Pages:</strong> {book.number_of_pages}
+                  <strong>Trang:</strong> {book.number_of_pages}
                 </p>
                 <p className="text-gray-600 mb-2">
-                  <strong>Rating:</strong>{" "}
+                  <strong>Đánh giá:</strong>{" "}
                   {book.rating ? (
                     <span className="text-yellow-500 flex items-center">
                       {book.rating} <FaStar className="ml-1" />
                     </span>
                   ) : (
-                    <span>No rating</span>
+                    <span>Chưa có đánh giá</span>
                   )}
                 </p>
                 <p className="text-gray-600 mb-2">
-                  <strong>Price:</strong> ${book.price}
+                  <strong>Giá:</strong> {book.price}đ
                 </p>
                 <p className="text-gray-600 mb-2">
-                  <strong>Stock:</strong>{" "}
+                  <strong>Tồn kho:</strong>{" "}
                   {book.countInStock > 0 ? (
                     <span className="text-green-500">
-                      {book.countInStock} in stock
+                      {book.countInStock} có sẵn
                     </span>
                   ) : (
-                    <span className="text-red-500">Out of stock</span>
+                    <span className="text-red-500">Hết hàng</span>
                   )}
                 </p>
                 <div className="flex justify-between items-center">
                   <Ratings
                     value={book.rating}
-                    text={`${book.numReviews} reviews`}
+                    text={`${book.numReviews} đánh giá`}
                   />
 
                   {book.countInStock > 0 && (
@@ -141,10 +158,13 @@ const BookDetails = () => {
                 </div>
                 <div>
                   <button
-                    onClick={addToCardHandler}
+                    onClick={addToCartHandler}
                     disabled={book.countInStock === 0}
+                    className={`bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline disabled:opacity-50 ${
+                      book.countInStock === 0 ? "cursor-not-allowed" : ""
+                    }`}
                   >
-                    Add To Cart
+                    {book.countInStock === 0 ? "Hết hàng" : "Thêm vào giỏ hàng"}
                   </button>
                 </div>
               </div>
@@ -152,9 +172,9 @@ const BookDetails = () => {
 
             {/* Review */}
             <div className="p-8">
-              <h3 className="text-2xl font-bold mb-4">Reviews</h3>
+              <h3 className="text-2xl font-bold mb-4">Nhận xét</h3>
               {book.reviews.length === 0 && (
-                <p className="text-gray-600">No reviews yet</p>
+                <p className="text-gray-600">Chưa có nhận xét</p>
               )}
               {book.reviews.map((review) => (
                 <div
@@ -163,10 +183,10 @@ const BookDetails = () => {
                 >
                   <p className="text-gray-800 font-bold">{review.name}</p>
                   <p className="text-yellow-500 flex items-center">
-                    Rating: {review.rating} <FaStar className="ml-1" />
+                    Đánh giá: {review.rating} <FaStar className="ml-1" />
                   </p>
                   <p className="text-gray-600">
-                    <span className="font-bold">Đánh giá:</span>{" "}
+                    <span className="font-bold">Nhận xét:</span>{" "}
                     {review.comment}
                   </p>
                   <p className="text-gray-500 text-sm">
@@ -176,13 +196,13 @@ const BookDetails = () => {
               ))}
               {userInfo ? (
                 <form onSubmit={submitHandler}>
-                  <h4 className="text-xl font-bold mb-4">Write a review</h4>
+                  <h4 className="text-xl font-bold mb-4">Viết nhận xét</h4>
                   <div className="mb-4">
                     <label
                       htmlFor="rating"
                       className="block font-bold mb-2 text-gray-700"
                     >
-                      Rating
+                      Đánh giá
                     </label>
                     <select
                       required
@@ -192,12 +212,12 @@ const BookDetails = () => {
                       onChange={(e) => setRating(e.target.value)}
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
-                      <option value="">Select...</option>
-                      <option value="1">1 - Poor</option>
-                      <option value="2">2 - Fair</option>
-                      <option value="3">3 - Good</option>
-                      <option value="4">4 - Very Good</option>
-                      <option value="5">5 - Excellent</option>
+                      <option value="">Chọn...</option>
+                      <option value="1">1 - Kém</option>
+                      <option value="2">2 - Tạm được</option>
+                      <option value="3">3 - Tốt</option>
+                      <option value="4">4 - Rất tốt</option>
+                      <option value="5">5 - Xuất sắc</option>
                     </select>
                   </div>
                   <div className="mb-4">
@@ -205,7 +225,7 @@ const BookDetails = () => {
                       htmlFor="comment"
                       className="block font-bold mb-2 text-gray-700"
                     >
-                      Comment
+                      Nhận xét
                     </label>
                     <textarea
                       required
@@ -222,19 +242,19 @@ const BookDetails = () => {
                     disabled={loadingBookReview}
                     className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline disabled:opacity-50"
                   >
-                    Submit
+                    Gửi
                   </button>
                 </form>
               ) : (
                 <div>
                   <p className="text-gray-600 mb-2">
-                    Please log in to write a review
+                    Vui lòng đăng nhập để viết nhận xét
                   </p>
                   <Link
                     to="/login"
                     className="text-blue-500 hover:text-blue-600 font-bold"
                   >
-                    Log In
+                    Đăng nhập
                   </Link>
                 </div>
               )}

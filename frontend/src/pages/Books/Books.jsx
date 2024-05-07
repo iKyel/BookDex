@@ -3,12 +3,14 @@ import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/features/cart/cartSlice";
 import HeartIcon from "./components/HeartIcon";
+import { useSelector } from "react-redux";
 
 const Books = ({ books }) => {
+  const { userInfo } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const addToCartHandler = (book, qty) => {
-    dispatch(addToCart({...book, qty}))
-    toast.success(`Thêm sách ${book.name} vào giỏ hàng`);
+    dispatch(addToCart({ ...book, qty }));
+    toast.success(`Đã thêm sách ${book.name} vào giỏ hàng`);
   };
 
   return (
@@ -25,15 +27,36 @@ const Books = ({ books }) => {
                 alt={book.name}
                 className="w-full h-60 object-cover"
               />
+              {userInfo && userInfo.isAdmin && (
+                <div className="p-4 flex justify-center">
+                  <Link to={`/admin/books/update/${book._id}`}>
+                    <button className="text-sm text-gray-600 hover:text-gray-900 focus:outline-none">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4 inline-block mr-1"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M14.707 4.293a1 1 0 0 1 1.414 1.414L6.414 15.414a1 1 0 0 1-1.414-1.414L14.707 4.293zm1.414 1.414L5.707 16.707a1 1 0 1 1-1.414-1.414L15.707 4.293a1 1 0 1 1 1.414 1.414z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      Chỉnh sửa
+                    </button>
+                  </Link>
+                </div>
+              )}
               <div className="p-4">
                 <Link to={`/books/${book._id}`}>
                   <h3 className="text-lg font-semibold mb-2 truncate">
                     {book.name}
                   </h3>
                 </Link>
-                <p className="text-gray-800 italic">Giá: {book.price}</p>
+                <p className="text-gray-800 italic">Giá: {book.price}đ</p>
                 <p className="text-gray-800">
-                  Rating: {Math.round(book.rating)}
+                  Đánh giá: {Math.round(book.rating)}
                 </p>
               </div>
             </div>
@@ -57,7 +80,7 @@ const Books = ({ books }) => {
                       d="M9 5l7 7-7 7"
                     ></path>
                   </svg>
-                  Add to Cart
+                  Thêm vào giỏ hàng
                 </button>
                 <div className="mt-4">
                   <HeartIcon book={book} />

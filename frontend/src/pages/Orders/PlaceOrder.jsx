@@ -48,10 +48,10 @@ const PlaceOrder = () => {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div>
-            <h2 className="text-2xl font-bold mb-4">Shipping</h2>
+            <h2 className="text-2xl font-bold mb-4">Vận Chuyển</h2>
             <div className="bg-gray-100 p-4 rounded-md">
               <p>
-                <span className="font-bold">Address:</span>{" "}
+                <span className="font-bold">Địa Chỉ:</span>{" "}
                 {cart.shippingAddress.address}, {cart.shippingAddress.city},{" "}
                 {cart.shippingAddress.postalCode},{" "}
                 {cart.shippingAddress.country}
@@ -59,15 +59,16 @@ const PlaceOrder = () => {
             </div>
           </div>
           <div>
-            <h2 className="text-2xl font-bold mb-4">Payment Method</h2>
+            <h2 className="text-2xl font-bold mb-4">Phương Thức Thanh Toán</h2>
             <div className="bg-gray-100 p-4 rounded-md">
               <p>
-                <span className="font-bold">Method:</span> {cart.paymentMethod}
+                <span className="font-bold">Phương Thức:</span>{" "}
+                {cart.paymentMethod}
               </p>
             </div>
           </div>
           <div>
-            <h2 className="text-2xl font-bold mb-4">Order Items</h2>
+            <h2 className="text-2xl font-bold mb-4">Sản Phẩm Đặt Hàng</h2>
             <div className="bg-gray-100 p-4 rounded-md">
               {cart.cartItems.map((item, index) => (
                 <div key={index} className="flex items-center mb-2">
@@ -92,29 +93,29 @@ const PlaceOrder = () => {
             </div>
           </div>
           <div>
-            <h2 className="text-2xl font-bold mb-4">Order Summary</h2>
+            <h2 className="text-2xl font-bold mb-4">Tóm Tắt Đơn Hàng</h2>
             <div className="bg-gray-100 p-4 rounded-md">
               <div className="flex justify-between mb-2">
-                <p>Items</p>
+                <p>Sản Phẩm</p>
                 <p>${cart.itemsPrice}</p>
               </div>
               <div className="flex justify-between mb-2">
-                <p>Shipping</p>
+                <p>Vận Chuyển</p>
                 <p>${cart.shippingPrice}</p>
               </div>
               <div className="flex justify-between mb-2">
-                <p>Tax</p>
+                <p>Thuế</p>
                 <p>${cart.taxPrice}</p>
               </div>
               <div className="flex justify-between mb-4">
-                <p className="font-bold">Total</p>
+                <p className="font-bold">Tổng Cộng</p>
                 <p className="font-bold">${cart.totalPrice}</p>
               </div>
               <button
                 onClick={placeOrderHandler}
                 className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md w-full"
               >
-                Place Order
+                Đặt Hàng
               </button>
             </div>
           </div>

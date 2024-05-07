@@ -8,7 +8,7 @@ const UserOrders = () => {
 
   return (
     <div className="max-w-7xl mx-auto py-8">
-      <h1 className="text-3xl font-bold mb-6">My Orders</h1>
+      <h1 className="text-3xl font-bold mb-6">Đơn Hàng Của Tôi</h1>
       {isLoading ? (
         <Loader />
       ) : error ? (
@@ -20,11 +20,11 @@ const UserOrders = () => {
               <thead>
                 <tr className="bg-gray-100">
                   <th className="px-4 py-2">ID</th>
-                  <th className="px-4 py-2">ITEMS</th>
-                  <th className="px-4 py-2">DATE</th>
-                  <th className="px-4 py-2">TOTAL</th>
-                  <th className="px-4 py-2">PAID</th>
-                  <th className="px-4 py-2">DELIVERED</th>
+                  <th className="px-4 py-2">SẢN PHẨM</th>
+                  <th className="px-4 py-2">NGÀY</th>
+                  <th className="px-4 py-2">TỔNG CỘNG</th>
+                  <th className="px-4 py-2">ĐÃ THANH TOÁN</th>
+                  <th className="px-4 py-2">ĐÃ GIAO HÀNG</th>
 
                   <th className="px-4 py-2"></th>
                 </tr>
@@ -71,14 +71,14 @@ const UserOrders = () => {
                           {order.paymentMethod})
                         </>
                       ) : (
-                        <span className="text-red-500">Not Paid</span>
+                        <span className="text-red-500">Chưa Thanh Toán</span>
                       )}
                     </td>
                     <td className="px-4 py-2">
                       {order.isDelivered ? (
                         order.deliveredAt.substring(0, 10)
                       ) : (
-                        <span className="text-red-500">Not Delivered</span>
+                        <span className="text-red-500">Chưa Giao Hàng</span>
                       )}
                     </td>
 
@@ -87,7 +87,7 @@ const UserOrders = () => {
                         to={`/order/${order._id}`}
                         className="bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded-md"
                       >
-                        Details
+                        Chi Tiết
                       </Link>
                     </td>
                   </tr>

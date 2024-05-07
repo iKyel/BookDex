@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import Messsage from "../../components/Message";
+import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 import {
   useDeliverOrderMutation,
@@ -61,7 +61,7 @@ const Order = () => {
       try {
         await payOrder({ orderId, details });
         refetch();
-        toast.success("Order is paid");
+        toast.success("Đơn hàng đã được thanh toán");
       } catch (error) {
         toast.error(error?.data?.message || error.message);
       }
@@ -92,49 +92,50 @@ const Order = () => {
       {isLoading ? (
         <Loader />
       ) : error ? (
-        <Messsage variant="danger">{error}</Messsage>
+        <Message variant="danger">{error}</Message>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div>
-            <h2 className="text-2xl font-bold mb-4">Shipping</h2>
+            <h2 className="text-2xl font-bold mb-4">Vận Chuyển</h2>
             <div className="bg-gray-100 p-4 rounded-md">
               <p>
-                <span className="font-bold">Name:</span> {order.user.username}
+                <span className="font-bold">Tên:</span> {order.user.username}
               </p>
               <p>
                 <span className="font-bold">Email:</span>{" "}
                 <a href={`mailto:${order.user.email}`}>{order.user.email}</a>
               </p>
               <p>
-                <span className="font-bold">Address:</span>{" "}
+                <span className="font-bold">Địa Chỉ:</span>{" "}
                 {order.shippingAddress.address}, {order.shippingAddress.city},{" "}
                 {order.shippingAddress.postalCode},{" "}
                 {order.shippingAddress.country}
               </p>
               {order.isDelivered ? (
-                <Messsage variant="success">
-                  Delivered on {order.deliveredAt}
-                </Messsage>
+                <Message variant="success">
+                  Đã giao vào {order.deliveredAt}
+                </Message>
               ) : (
-                <Messsage variant="danger">Not Delivered</Messsage>
+                <Message variant="danger">Chưa giao</Message>
               )}
             </div>
           </div>
           <div>
-            <h2 className="text-2xl font-bold mb-4">Payment Method</h2>
+            <h2 className="text-2xl font-bold mb-4">Phương Thức Thanh Toán</h2>
             <div className="bg-gray-100 p-4 rounded-md">
               <p>
-                <span className="font-bold">Method:</span> {order.paymentMethod}
+                <span className="font-bold">Phương Thức:</span>{" "}
+                {order.paymentMethod}
               </p>
               {order.isPaid ? (
-                <Messsage variant="success">Paid on {order.paidAt}</Messsage>
+                <Message variant="success">Đã thanh toán vào {order.paidAt}</Message>
               ) : (
-                <Messsage variant="danger">Not Paid</Messsage>
+                <Message variant="danger">Chưa thanh toán</Message>
               )}
             </div>
           </div>
           <div className="md:col-span-2">
-            <h2 className="text-2xl font-bold mb-4">Order Items</h2>
+            <h2 className="text-2xl font-bold mb-4">Sản Phẩm Đặt Hàng</h2>
             <div className="bg-gray-100 p-4 rounded-md">
               {order.orderItems.map((item) => (
                 <div
@@ -153,8 +154,8 @@ const Order = () => {
                       </p>
                     </Link>
                     <p>
-                      {item.qty} x ${item.price} = $
-                      {(item.qty * item.price).toFixed(2)}
+                      {item.qty} x {item.price}đ = 
+                      {(item.qty * item.price).toFixed(2)}đ
                     </p>
                   </div>
                 </div>
@@ -162,23 +163,23 @@ const Order = () => {
             </div>
           </div>
           <div className="md:col-span-2">
-            <h2 className="text-2xl font-bold mb-4">Order Summary</h2>
+            <h2 className="text-2xl font-bold mb-4">Tóm Tắt Đơn Hàng</h2>
             <div className="bg-gray-100 p-4 rounded-md">
               <div className="flex justify-between mb-2">
-                <p>Items</p>
-                <p>${order.itemsPrice.toFixed(2)}</p>
+                <p>Sản Phẩm</p>
+                <p>{order.itemsPrice.toFixed(2)}đ</p>
               </div>
               <div className="flex justify-between mb-2">
-                <p>Shipping</p>
-                <p>${order.shippingPrice.toFixed(2)}</p>
+                <p>Vận Chuyển</p>
+                <p>{order.shippingPrice.toFixed(2)}đ</p>
               </div>
               <div className="flex justify-between mb-2">
-                <p>Tax</p>
-                <p>${order.taxPrice.toFixed(2)}</p>
+                <p>Thuế</p>
+                <p>{order.taxPrice.toFixed(2)}đ</p>
               </div>
               <div className="flex justify-between mb-4">
-                <p className="font-bold">Total</p>
-                <p className="font-bold">${order.totalPrice.toFixed(2)}</p>
+                <p className="font-bold">Tổng Cộng</p>
+                <p className="font-bold">{order.totalPrice.toFixed(2)}đ</p>
               </div>
               {!order.isPaid && (
                 <div className="mb-4">
@@ -198,7 +199,7 @@ const Order = () => {
                   className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-md"
                   disabled={loadingDeliver}
                 >
-                  {loadingDeliver ? "Delivering..." : "Mark as Delivered"}
+                  {loadingDeliver ? "Đang Giao..." : "Đánh Dấu Đã Giao"}
                 </button>
               )}
             </div>

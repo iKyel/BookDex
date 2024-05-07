@@ -61,6 +61,9 @@ const loginUser = asyncHandler(async (req, res) => {
       res.status(401);
       throw new Error("Mật khẩu không chính xác!");
     }
+  } else {
+    res.status(401);
+    throw new Error("Kiểm tra lại thông tin!");
   }
 });
 

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import moment from "moment";
-import { useAllBooksQuery } from "../../../redux/api/bookApiSlice";
+import { useAllBooksAdminQuery } from "../../../redux/api/bookApiSlice";
 import AdminMenu from "../AdminMenu";
 
 const AllBooks = () => {
@@ -11,7 +11,7 @@ const AllBooks = () => {
     isLoading,
     isError,
     error,
-  } = useAllBooksQuery();
+  } = useAllBooksAdminQuery();
   useEffect(() => {
     refetch();
   }, [refetch]);
@@ -40,12 +40,11 @@ const AllBooks = () => {
                 </Link>
                 <div className="p-4">
                   <h3 className="text-xl font-bold mb-2">
-                    <Link to={`/admin/books/update/${book._id}`}>{book.name}</Link>
+                    <Link to={`/admin/books/update/${book._id}`}>
+                      {book.name}
+                    </Link>
                   </h3>
-                  <p className="text-gray-600">Author: {book.author.name}</p>
-                  <p className="text-gray-600">
-                    Demographic: {book.demographic.name}
-                  </p>
+
                   <p className="bg-gray-100 text-gray-800 p-2 rounded">
                     {book.synopsis.substring(0, 100)}...
                   </p>

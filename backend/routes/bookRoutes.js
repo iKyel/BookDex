@@ -5,6 +5,7 @@ import checkId from "../middlewares/checkId.js";
 // controllers
 import {
   fetchBooks,
+  fetchBooksAdmin,
   fetchBookById,
   addBook,
   updateBookDetails,
@@ -19,6 +20,9 @@ const router = express.Router();
 
 // GET /api/books - Lấy danh sách sách với phân trang và tìm kiếm theo tên sách
 router.route("/").get(fetchBooks);
+
+// GET /api/books/admin - Lấy danh sách tất cả sách với quyền admin
+router.route("/admin").get(authenticate, authorizeAdmin, fetchBooksAdmin);
 
 // POST /api/books - Tạo mới sách, yêu cầu xác thực và quyền quản trị viên
 router.route("/").post(authenticate, authorizeAdmin, addBook);

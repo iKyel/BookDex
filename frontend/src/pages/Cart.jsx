@@ -8,7 +8,6 @@ const Cart = () => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
-  console.log(cartItems)
 
   const addToCartHandler = (product, qty) => {
     const updatedQty =
@@ -17,6 +16,7 @@ const Cart = () => {
         : product.countInStock;
     dispatch(addToCart({ ...product, qty: updatedQty }));
   };
+
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id));
   };
@@ -30,96 +30,114 @@ const Cart = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto my-8">
-      <h1 className="text-2xl font-bold mb-4">Giỏ hàng</h1>
-      {cartItems.length === 0 ? (
-        <div className="text-center">
-          <p>Giỏ hàng của bạn đang trống</p>
-          <button
-            onClick={() => navigate("/home")}
-            className="text-white btn btn-primary mt-4 bg-blue-500 hover:from-green-500 hover:to-blue-600 hover:text-white px-6 py-3 rounded-lg"
-          >
-            Tiếp tục mua sắm
-          </button>
-        </div>
-      ) : (
-        <div>
-          <div className="overflow-x-auto">
-            <table className="table-auto w-full">
-              <thead>
-                <tr>
-                  <th className="px-4 py-2">Sản phẩm</th>
-                  <th className="px-4 py-2">Giá</th>
-                  <th className="px-4 py-2">Số lượng</th>
-                  <th className="px-4 py-2">Tổng</th>
-                  <th className="px-4 py-2"></th>
-                </tr>
-              </thead>
-              <tbody>
-                {cartItems.map((item) => (
-                  <tr key={item._id}>
-                    <td className="px-4 py-2 flex items-center">
-                      <img
-                        src={item.cover}
-                        alt={item.name}
-                        className="w-16  object-contain mr-4"
-                      />
-                      <Link
-                        to={`/books/${item._id}`}
-                        className="text-blue-500 hover:underline"
-                      >
-                        {item.name}
-                      </Link>
-                    </td>
-                    <td className="px-4 py-2">{item.price} đ</td>
-                    <td className="px-4 py-2">
-                      <div className="flex items-center">
-                        <button
-                          onClick={() => addToCartHandler(item, item.qty - 1)}
-                          disabled={item.qty === 1}
-                          className="bg-gray-200 text-gray-700 rounded-l px-2 py-1 disabled:opacity-50 disabled:cursor-not-allowed"
-                        >
-                          -
-                        </button>
-                        <span className="mx-2">{item.qty}</span>
-                        <button
-                          onClick={() => addToCartHandler(item, item.qty + 1)}
-                          className="bg-gray-200 text-gray-700 rounded-r px-2 py-1"
-                        >
-                          +
-                        </button>
-                      </div>
-                    </td>
-                    <td className="px-4 py-2">
-                      {(item.price * item.qty).toLocaleString()} đ
-                    </td>
-                    <td className="px-4 py-2">
-                      <button
-                        onClick={() => removeFromCartHandler(item._id)}
-                        className="text-red-500 hover:text-red-700"
-                      >
-                        <FaTrash />
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+    <div className="bg-gray-100 min-h-screen py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 className="text-3xl font-bold mb-6">Giỏ hàng</h1>
+        {cartItems.length === 0 ? (
+          <div className="bg-white p-6 rounded-lg shadow-md text-center">
+            <p className="text-gray-600">Giỏ hàng của bạn đang trống</p>
+            <button
+              onClick={() => navigate("/home")}
+              className="mt-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded"
+            >
+              Tiếp tục mua sắm
+            </button>
           </div>
-          <div className="mt-8 flex justify-end">
-            <div className="bg-gray-200 p-4 rounded-md">
-              <p className="font-bold mb-2">Tổng cộng:</p>
-              <p className="text-2xl">{getCartTotal().toLocaleString()} đ</p>
-              <button
-                onClick={checkoutHandler}
-                className="btn btn-primary mt-4 w-full"
-              >
-                Thanh toán
-              </button>
+        ) : (
+          <div>
+            <div className="bg-white rounded-lg shadow-md overflow-x-auto">
+              <table className="w-full table-auto">
+                <thead>
+                  <tr className="bg-gray-100">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Sản phẩm
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Giá
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Số lượng
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Tổng
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  {cartItems.map((item) => (
+                    <tr key={item._id}>
+                      <td className="px-6 py-4">
+                        <div className="flex items-center">
+                          <img
+                            src={item.cover}
+                            alt={item.name}
+                            className="w-16 h-16 object-contain mr-4"
+                          />
+                          <Link
+                            to={`/books/${item._id}`}
+                            className="text-indigo-600 hover:text-indigo-800"
+                          >
+                            {item.name}
+                          </Link>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 text-gray-700">
+                        {item.price.toLocaleString()} đ
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="flex items-center">
+                          <button
+                            onClick={() => addToCartHandler(item, item.qty - 1)}
+                            disabled={item.qty === 1}
+                            className="bg-gray-200 text-gray-700 hover:bg-gray-300 rounded-l-md px-2 py-1 disabled:opacity-50 disabled:cursor-not-allowed"
+                          >
+                            -
+                          </button>
+                          <span className="mx-2 text-gray-700">{item.qty}</span>
+                          <button
+                            onClick={() => addToCartHandler(item, item.qty + 1)}
+                            className="bg-gray-200 text-gray-700 hover:bg-gray-300 rounded-r-md px-2 py-1"
+                          >
+                            +
+                          </button>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 text-gray-700">
+                        {(item.price * item.qty).toLocaleString()} đ
+                      </td>
+                      <td className="px-6 py-4">
+                        <button
+                          onClick={() => removeFromCartHandler(item._id)}
+                          className="text-red-600 hover:text-red-800"
+                        >
+                          <FaTrash />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="mt-6 flex justify-end">
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                <div className="mb-4">
+                  <p className="text-gray-700 font-bold">Tổng cộng:</p>
+                  <p className="text-2xl text-gray-900">
+                    {getCartTotal().toLocaleString()} đ
+                  </p>
+                </div>
+                <button
+                  onClick={checkoutHandler}
+                  className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded"
+                >
+                  Thanh toán
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };

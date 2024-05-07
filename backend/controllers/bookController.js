@@ -32,6 +32,32 @@ const fetchBooks = asyncHandler(async (req, res) => {
   }
 });
 
+const fetchBooksAdmin = asyncHandler(async (req, res) => {
+  try {
+    const keyword = req.query.keyword
+      ? {
+          name: {
+            $regex: req.query.keyword,
+            $options: "i",
+          },
+        }
+      : {};
+
+    const count = await Book.countDocuments({ ...keyword });
+    const books = await Book.find({ ...keyword });
+
+    res.json({
+      books,
+      page: 1,
+      pages: Math.ceil(count),
+      hasMore: false,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server Error" });
+  }
+});
+
 // @desc    Fetch single book
 // @route   GET /api/books/:id
 // @access  Public
@@ -224,7 +250,7 @@ const addBookReview = asyncHandler(async (req, res) => {
 // @access  Public
 const fetchTopBooks = asyncHandler(async (req, res) => {
   try {
-    const books = await Book.find({}).sort({ rating: -1 }).limit(20);
+    const books = await Book.find({}).sort({ rating: -1 }).limit(8);
     res.json(books);
   } catch (error) {
     console.error(error);
@@ -250,7 +276,7 @@ const fetchNewBooks = asyncHandler(async (req, res) => {
 // @access  Public
 const filterBooks = asyncHandler(async (req, res) => {
   try {
-    const { author, demographic, price } = req.body;
+    const { author, demographic, price, name } = req.body;
 
     let args = {};
     if (author) args.author = author;
@@ -261,6 +287,9 @@ const filterBooks = asyncHandler(async (req, res) => {
         $gte: Number(minPrice) || 0,
         $lte: Number(maxPrice) || Infinity,
       };
+    }
+    if (name) {
+      args.name = { $regex: name, $options: "i" };
     }
 
     const books = await Book.find(args);
@@ -273,6 +302,7 @@ const filterBooks = asyncHandler(async (req, res) => {
 
 export {
   fetchBooks,
+  fetchBooksAdmin,
   fetchBookById,
   addBook,
   updateBookDetails,
