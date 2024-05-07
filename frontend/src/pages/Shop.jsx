@@ -110,6 +110,7 @@ const Shop = () => {
               onChange={handleSortOrderChange}
               className="border border-gray-300 rounded-md px-2 py-1 focus:outline-none w-full"
             >
+              <option value="">Tất cả giá</option>
               <option value="ascending_price">Giá: Thấp đến cao</option>
               <option value="descending_price">Giá: Cao đến thấp</option>
               <option value="alphabetical">Tên: A đến Z</option>
