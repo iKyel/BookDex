@@ -44,16 +44,17 @@ const Navigation = () => {
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
-          <div className="flex items-center">
-            <img
-              className="h-8 w-auto mr-2"
-              src="https://mangadex.org/img/brand/mangadex-logo.svg"
-              alt="BookDex Logo"
-            />
-            <Link to="/home">
+          <Link to="/home">
+            <div className="flex items-center">
+              <img
+                className="h-8 w-auto mr-2"
+                src="https://mangadex.org/img/brand/mangadex-logo.svg"
+                alt="BookDex Logo"
+              />
+
               <h1 className="text-lg font-semibold">BookDex</h1>
-            </Link>
-          </div>
+            </div>
+          </Link>
 
           {/* Search bar */}
           <div className="flex-1 mx-4">
@@ -126,6 +127,12 @@ const Navigation = () => {
                               Tài Khoản
                             </Link>
                             <Link
+                              to="/user/orderlist"
+                              className="block px-4 py-2 text-white hover:bg-gray-700"
+                            >
+                              Đơn Hàng
+                            </Link>
+                            <Link
                               onClick={logoutHandler} // Chỉ thêm logout handler nếu không phải admin
                               className="block px-4 py-2 text-white hover:bg-gray-700"
                             >
@@ -142,6 +149,12 @@ const Navigation = () => {
                               className="block px-4 py-2 text-white hover:bg-gray-700"
                             >
                               Tài Khoản
+                            </Link>
+                            <Link
+                              to="/admin/orderlist"
+                              className="block px-4 py-2 text-white hover:bg-gray-700"
+                            >
+                              Đơn Hàng
                             </Link>
                             <Link
                               onClick={logoutHandler}

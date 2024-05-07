@@ -12,6 +12,7 @@ import moment from "moment";
 import HeartIcon from "./components/HeartIcon";
 import Ratings from "./components/Rating";
 import { addToCart } from "../../redux/features/cart/cartSlice";
+import AdminMenu from "../Admin/AdminMenu";
 
 const BookDetails = () => {
   const { id: bookId } = useParams();
@@ -47,12 +48,13 @@ const BookDetails = () => {
   };
 
   const addToCardHandler = () => {
-    dispatch(addToCart({...book, qty}))
-    navigate('/cart')
+    dispatch(addToCart({ ...book, qty }));
+    navigate("/cart");
   };
 
   return (
-    <div className="bg-gray-100 min-h-screen py-12">
+    <div className="bg-gray-100 min-h-screen">
+      <AdminMenu />
       {isLoading ? (
         <Loader />
       ) : error ? (

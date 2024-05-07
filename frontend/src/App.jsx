@@ -30,6 +30,12 @@ import FavoriteBooks from "./pages/Books/FavoriteBooks";
 import BookDetails from "./pages/Books/BookDetails";
 import Cart from "./pages/Cart";
 import Shop from "./pages/Shop";
+import Shipping from "./pages/Orders/Shipping";
+import PlaceOrder from "./pages/Orders/PlaceOrder";
+import Order from "./pages/Orders/Order";
+import UserOrders from "./pages/User/UserOrders";
+import OrderList from "./pages/Admin/Orders/OrderList";
+import AdminDashBoard from "./pages/Admin/AdminDashBoard";
 
 
 const routes = [
@@ -47,6 +53,10 @@ const routes = [
     <Route path="/books/:id" element={<BookDetails />}/>
     <Route path="/cart" element={<Cart />}/>
     <Route path="/shop" element={<Shop />}/>
+    <Route path="/shipping" element={<Shipping />}/>
+    <Route path="/place-order" element={<PlaceOrder />}/>
+    <Route path="/order/:id" element={<Order />}/>
+    <Route path="/user/orderlist" element={<UserOrders />}/>
     <Route path='/admin' element={<AdminRoute />}>
         <Route path="userlist" element={<UserList />}/>
         <Route path="demographiclist" element={<DemographicList />}/>
@@ -54,6 +64,8 @@ const routes = [
         <Route path="addbook" element={<BookList />}/>
         <Route path="allbooks" element={<AllBooks />}/>
         <Route path="books/update/:bookId" element={<BookUpdate />}/>
+        <Route path="orderlist" element={<OrderList />}/>
+        <Route path="dashboard" element={<AdminDashBoard />}/>
     </Route>
   </Route>,
 ];

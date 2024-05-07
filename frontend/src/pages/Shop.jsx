@@ -7,6 +7,7 @@ import {
   setDemographicFilter,
   setPriceFilter,
 } from "../redux/features/shop/shopSlice";
+import AdminMenu from "./Admin/AdminMenu";
 
 const Shop = () => {
   const dispatch = useDispatch();
@@ -45,47 +46,56 @@ const Shop = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-        <div>
-          <label htmlFor="demographic-filter" className="block text-gray-700 font-semibold mb-2">
-            Filter by Demographic:
-          </label>
-          <select
-            id="demographic-filter"
-            value={currentDemographic}
-            onChange={handleDemographicChange}
-            className="border border-gray-300 rounded-md px-2 py-1 focus:outline-none w-full"
-          >
-            <option value="">All Demographics</option>
-            {demographics &&
-              demographics.map((demographic) => (
-                <option key={demographic._id} value={demographic._id}>
-                  {demographic.name}
-                </option>
-              ))}
-          </select>
+    <>
+      <AdminMenu />
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+          <div>
+            <label
+              htmlFor="demographic-filter"
+              className="block text-gray-700 font-semibold mb-2"
+            >
+              Filter by Demographic:
+            </label>
+            <select
+              id="demographic-filter"
+              value={currentDemographic}
+              onChange={handleDemographicChange}
+              className="border border-gray-300 rounded-md px-2 py-1 focus:outline-none w-full"
+            >
+              <option value="">All Demographics</option>
+              {demographics &&
+                demographics.map((demographic) => (
+                  <option key={demographic._id} value={demographic._id}>
+                    {demographic.name}
+                  </option>
+                ))}
+            </select>
+          </div>
+          <div>
+            <label
+              htmlFor="price-filter"
+              className="block text-gray-700 font-semibold mb-2"
+            >
+              Filter by Price:
+            </label>
+            <select
+              id="price-filter"
+              value={currentPrice}
+              onChange={handlePriceChange}
+              className="border border-gray-300 rounded-md px-2 py-1 focus:outline-none w-full"
+            >
+              <option value="">All Prices</option>
+              <option value="0-100">$0 - $100</option>
+              <option value="10-200">$100 - $200</option>
+              <option value="200-">Over $200</option>
+              {/* Thêm các tùy chọn giá khác nếu cần */}
+            </select>
+          </div>
         </div>
-        <div>
-          <label htmlFor="price-filter" className="block text-gray-700 font-semibold mb-2">
-            Filter by Price:
-          </label>
-          <select
-            id="price-filter"
-            value={currentPrice}
-            onChange={handlePriceChange}
-            className="border border-gray-300 rounded-md px-2 py-1 focus:outline-none w-full"
-          >
-            <option value="">All Prices</option>
-            <option value="0-100">$0 - $100</option>
-            <option value="10-200">$100 - $200</option>
-            <option value="200-">Over $200</option>
-            {/* Thêm các tùy chọn giá khác nếu cần */}
-          </select>
-        </div>
+        <Books books={books} />
       </div>
-      <Books books={books} />
-    </div>
+    </>
   );
 };
 
