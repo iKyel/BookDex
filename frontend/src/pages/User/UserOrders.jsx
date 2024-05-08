@@ -52,8 +52,8 @@ const UserOrders = () => {
                                 </p>
                               </Link>
                               <p>
-                                {item.qty} x ${item.price} = $
-                                {(item.qty * item.price).toFixed(2)}
+                                {item.qty} x {item.price}đ =
+                                {(item.qty * item.price).toFixed(2)}đ
                               </p>
                             </div>
                           </div>
@@ -63,7 +63,7 @@ const UserOrders = () => {
                     <td className="px-4 py-2">
                       {order.createdAt.substring(0, 10)}
                     </td>
-                    <td className="px-4 py-2">${order.totalPrice}</td>
+                    <td className="px-4 py-2">{order.totalPrice}đ</td>
                     <td className="px-4 py-2">
                       {order.isPaid ? (
                         <>

@@ -226,6 +226,44 @@ const updateOrderToDelivered = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Get top selling books
+// @route   GET /api/orders/top-books
+// @access  Private/Admin
+const getTopSellingBooks = asyncHandler(async (req, res) => {
+  try {
+    const orders = await Order.find({ isPaid: true, isDelivered: true });
+
+    const orderItems = orders.reduce((acc, order) => {
+      return acc.concat(order.orderItems);
+    }, []);
+
+    const bookCounts = orderItems.reduce((acc, item) => {
+      const bookId = item.book.toString();
+      if (acc[bookId]) {
+        acc[bookId].qty += item.qty;
+      } else {
+        acc[bookId] = {
+          book: item.book,
+          name: item.name,
+          cover: item.cover,
+          qty: item.qty,
+        };
+      }
+      return acc;
+    }, {});
+
+    const sortedBooks = Object.values(bookCounts).sort(
+      (a, b) => b.qty - a.qty
+    );
+
+    const topSellingBooks = sortedBooks.slice(0, 10);
+
+    res.json(topSellingBooks);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 export {
   createOrder,
   getOrderById,
@@ -235,5 +273,6 @@ export {
   getOrders,
   countTotalOrders,
   calculateTotalSales,
-  calculateTotalSalesByDate
+  calculateTotalSalesByDate,
+  getTopSellingBooks
 };

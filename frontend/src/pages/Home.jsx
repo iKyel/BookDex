@@ -2,6 +2,7 @@ import AdminMenu from "./Admin/AdminMenu";
 import Header from "../components/Header";
 import TopBooks from "./Books/TopBooks";
 import { Link } from "react-router-dom";
+import TopSellingBooks from "./Books/Orders/TopSellingBooks";
 
 const Home = () => {
   return (
@@ -16,6 +17,7 @@ const Home = () => {
           </button>
         </div>
       </Link>
+      <TopSellingBooks />
     </div>
   );
 };

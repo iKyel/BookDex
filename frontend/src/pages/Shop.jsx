@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetFilteredBooksQuery } from "../redux/api/bookApiSlice";
 import { useFetchDemographicsQuery } from "../redux/api/demographicsApiSlice";
@@ -6,7 +6,6 @@ import Books from "./Books/Books";
 import {
   setDemographicFilter,
   setPriceFilter,
-  setSortOrder,
 } from "../redux/features/shop/shopSlice";
 import AdminMenu from "./Admin/AdminMenu";
 
@@ -19,7 +18,6 @@ const Shop = () => {
 
   const { data: demographics } = useFetchDemographicsQuery();
 
-  const priceFilter = useSelector((state) => state.shop.filters.price);
   const {
     data: books,
     isLoading,
