@@ -10,11 +10,7 @@ const Cart = () => {
   const { cartItems } = cart;
 
   const addToCartHandler = (product, qty) => {
-    const updatedQty =
-      product.countInStock > 0 && qty <= product.countInStock
-        ? qty
-        : product.countInStock;
-    dispatch(addToCart({ ...product, qty: updatedQty }));
+    dispatch(addToCart({ ...product, qty }));
   };
 
   const removeFromCartHandler = (id) => {
@@ -86,8 +82,20 @@ const Cart = () => {
                         {item.price.toLocaleString()} đ
                       </td>
                       <td className="px-6 py-4">
-                        <div className="flex items-center">
-                          <span className="mx-2 text-gray-700">{item.qty}</span>
+                        <div className="w-24">
+                          <select
+                            className="w-full p-1 border rounded text-black"
+                            value={item.qty}
+                            onChange={(e) =>
+                              addToCartHandler(item, Number(e.target.value))
+                            }
+                          >
+                            {[...Array(item.countInStock).keys()].map((x) => (
+                              <option key={x + 1} value={x + 1}>
+                                {x + 1}
+                              </option>
+                            ))}
+                          </select>
                         </div>
                       </td>
                       <td className="px-6 py-4 text-gray-700">
