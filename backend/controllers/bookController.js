@@ -6,7 +6,7 @@ import Book from "../models/bookModel.js";
 // @access  Public
 const fetchBooks = asyncHandler(async (req, res) => {
   try {
-    const pageSize = 6;
+    const pageSize = 50;
 
     const keyword = req.query.keyword
       ? {

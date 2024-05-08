@@ -8,7 +8,7 @@ import cookieParser from "cookie-parser";
 import connectDB from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js";
 
-// Model
+// Routes
 import demographicRoutes from "./routes/demographicRoutes.js";
 import authorRoutes from "./routes/authorRoutes.js";
 import bookRoutes from "./routes/bookRoutes.js"

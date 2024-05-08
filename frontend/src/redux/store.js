@@ -13,13 +13,6 @@ import cartSliceReducer from "./features/cart/cartSlice";
 
 const initialFavorites = getFavoritesFromLocalStorage() || [];
 
-// import favoritesReducer from "../redux/features/favorites/favoriteSlice";
-// import cartSliceReducer from "../redux/features/cart/cartSlice";
-// import shopReducer from "../redux/features/shop/shopSlice";
-// import { getFavoritesFromLocalStorage } from "../Utils/localStorage";
-
-// const initialFavorites = getFavoritesFromLocalStorage() || [];
-
 const store = configureStore({
   reducer: {
     [apiSlice.reducerPath]: apiSlice.reducer,
@@ -27,9 +20,6 @@ const store = configureStore({
     favorites: favoritesReducer,
     cart: cartSliceReducer,
     shop: shopReducer
-    // favorites: favoritesReducer,
-    // cart: cartSliceReducer,
-    // shop: shopReducer,
   },
 
   preloadedState: {

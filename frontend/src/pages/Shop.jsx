@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useGetFilteredBooksQuery } from "../redux/api/bookApiSlice";
 import { useFetchDemographicsQuery } from "../redux/api/demographicsApiSlice";
 import Books from "./Books/Books";
