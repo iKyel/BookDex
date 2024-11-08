@@ -10,7 +10,9 @@ import {
   countTotalOrders,
   calculateTotalSales,
   calculateTotalSalesByDate,
-  getTopSellingBooks
+  getTopSellingBooks,
+  getTopCustomers,
+  searchOrders,
 } from "../controllers/orderController.js";
 
 const router = express.Router();
@@ -21,7 +23,7 @@ router.route("/").post(authenticate, createOrder);
 // GET /api/orders/myorders - Lấy danh sách các đơn hàng của người dùng đang đăng nhập, yêu cầu xác thực
 router.route("/myorders").get(authenticate, getMyOrders);
 
-router.route("/top-books").get( getTopSellingBooks);
+router.route("/top-books").get(getTopSellingBooks);
 // GET /api/orders - Lấy danh sách tất cả các đơn hàng, yêu cầu xác thực và quyền quản trị viên
 router.route("/").get(authenticate, authorizeAdmin, getOrders);
 
@@ -30,6 +32,14 @@ router.route("/total-orders").get(countTotalOrders);
 router.route("/total-sales").get(calculateTotalSales);
 
 router.route("/total-sales-by-date").get(calculateTotalSalesByDate);
+
+// GET /api/orders/search - Tìm kiếm đơn hàng dựa trên tiêu chí
+router.route("/search").post(authenticate, authorizeAdmin, searchOrders);
+
+// GET /api/orders/top-customers - Lấy danh sách 10 khách hàng mua nhiều sách nhất, yêu cầu xác thực và quyền quản trị viên
+router
+  .route("/top-customers")
+  .get(authenticate, getTopCustomers);
 
 // GET /api/orders/:id - Lấy thông tin chi tiết của một đơn hàng dựa trên id, yêu cầu xác thực
 router.route("/:id").get(authenticate, getOrderById);
@@ -41,7 +51,6 @@ router.route("/:id/pay").put(authenticate, updateOrderToPaid);
 router
   .route("/:id/deliver")
   .put(authenticate, authorizeAdmin, updateOrderToDelivered);
-
 
 
 

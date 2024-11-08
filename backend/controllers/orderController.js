@@ -252,9 +252,7 @@ const getTopSellingBooks = asyncHandler(async (req, res) => {
       return acc;
     }, {});
 
-    const sortedBooks = Object.values(bookCounts).sort(
-      (a, b) => b.qty - a.qty
-    );
+    const sortedBooks = Object.values(bookCounts).sort((a, b) => b.qty - a.qty);
 
     const topSellingBooks = sortedBooks.slice(0, 10);
 
@@ -262,7 +260,81 @@ const getTopSellingBooks = asyncHandler(async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+
+  // @desc    Get top customers
+  // @route   GET /api/orders/top-customers
+  // @access  Private/Admin
 });
+const getTopCustomers = asyncHandler(async (req, res) => {
+  try {
+    const orders = await Order.find({ isPaid: true, isDelivered: true })
+      .populate("user", "username email")
+      .lean();
+
+    const customerOrders = orders.reduce((acc, order) => {
+      const customerId = order.user._id.toString();
+      if (acc[customerId]) {
+        acc[customerId].orders.push(order);
+        acc[customerId].totalOrders += 1;
+        acc[customerId].totalAmount += order.totalPrice;
+      } else {
+        acc[customerId] = {
+          user: order.user,
+          orders: [order],
+          totalOrders: 1,
+          totalAmount: order.totalPrice,
+        };
+      }
+      return acc;
+    }, {});
+
+    const sortedCustomers = Object.values(customerOrders).sort(
+      (a, b) => b.totalAmount - a.totalAmount
+    );
+
+    const topCustomers = sortedCustomers.slice(0, 10);
+
+    res.json(topCustomers);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// @desc    Tìm kiếm đơn hàng dựa trên tiêu chí
+// @route   GET /api/orders/search
+// @access  Private/Admin
+// @desc    Tìm kiếm đơn hàng dựa trên tiêu chí
+// @route   POST /api/orders/search
+// @access  Private/Admin
+const searchOrders = asyncHandler(async (req, res) => {
+  try {
+    // Lấy các điều kiện tìm kiếm từ body JSON của request
+    const { isPaid, isDelivered } = req.body;
+    
+    // Tạo object chứa điều kiện tìm kiếm
+    const searchCriteria = {};
+    
+    // Nếu có điều kiện lọc theo trạng thái đã thanh toán, thêm vào điều kiện tìm kiếm
+    if (isPaid !== undefined) {
+      searchCriteria.isPaid = isPaid;
+    }
+
+    // Nếu có điều kiện lọc theo trạng thái đã giao hàng, thêm vào điều kiện tìm kiếm
+    if (isDelivered !== undefined) {
+      searchCriteria.isDelivered = isDelivered;
+    }
+    
+    // Thực hiện tìm kiếm đơn hàng dựa trên điều kiện tìm kiếm
+    const orders = await Order.find(searchCriteria);
+    
+    res.json(orders);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+
+
 
 export {
   createOrder,
@@ -274,5 +346,7 @@ export {
   countTotalOrders,
   calculateTotalSales,
   calculateTotalSalesByDate,
-  getTopSellingBooks
+  getTopSellingBooks,
+  getTopCustomers,
+  searchOrders,
 };

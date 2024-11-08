@@ -37,7 +37,7 @@ import UserOrders from "./pages/User/UserOrders";
 import OrderList from "./pages/Admin/Orders/OrderList";
 import AdminDashBoard from "./pages/Admin/AdminDashBoard";
 import Author from "./pages/Books/Author/Author";
-
+import TopCustomers from "./pages/TopCustomers";
 const routes = [
   // Các trang không sử dụng MainLayout
   <Route key="login" path="/login" element={<Login />} />,
@@ -53,6 +53,7 @@ const routes = [
     <Route path="/books/:id" element={<BookDetails />} />
     <Route path="/cart" element={<Cart />} />
     <Route path="/shop" element={<Shop />} />
+    <Route path="/top-customers" element={<TopCustomers />} />
     <Route path="/shipping" element={<Shipping />} />
     <Route path="/place-order" element={<PlaceOrder />} />
     <Route path="/order/:id" element={<Order />} />

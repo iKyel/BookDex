@@ -186,6 +186,7 @@ const Navigation = () => {
                             >
                               Đăng Xuất
                             </Link>
+                            
                           </div>
                         </>
                       )}
@@ -221,6 +222,11 @@ const Navigation = () => {
             <Link to={`/shop`}>
               <a href="#" className="hover:text-gray-300">
                 Cửa Hàng
+              </a>
+            </Link>
+            <Link to={`/top-customers`}>
+              <a href="#" className="hover:text-gray-300">
+                Top Đại Gia
               </a>
             </Link>
 

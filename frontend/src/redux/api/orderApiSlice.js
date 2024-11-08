@@ -66,6 +66,16 @@ export const orderApiSlice = apiSlice.injectEndpoints({
       getTopSellingBooks: builder.query({
         query: () => `${ORDERS_URL}/top-books`,
       }),
+      getTopCustomers: builder.query({
+        query: () => `${ORDERS_URL}/top-customers`,
+      }),
+      searchOrders: builder.query({
+        query: (searchCriteria) => ({
+          url: `${ORDERS_URL}/search`,
+          method: "POST",
+          body: searchCriteria,
+        }),
+      }),
     }),
   });
   
@@ -81,5 +91,7 @@ export const orderApiSlice = apiSlice.injectEndpoints({
     useGetMyOrdersQuery,
     useDeliverOrderMutation,
     useGetOrdersQuery,
-    useGetTopSellingBooksQuery
+    useGetTopSellingBooksQuery,
+    useGetTopCustomersQuery,
+    useSearchOrdersQuery,
   } = orderApiSlice;
