@@ -62,7 +62,18 @@ const Books = ({ books }) => {
                   Đánh giá: {Math.round(book.rating)}
                 </p>
                 <p className="text-gray-800">
-                 Tồn kho: {Math.round(book.countInStock)}
+                 Tồn kho: {book.countInStock > 0 ? (
+                    <span className="text-green-500">
+                      Còn hàng
+                      <>
+                        {userInfo &&
+                          userInfo.isAdmin &&
+                          ` (${book.countInStock} có sẵn)`}
+                      </>
+                    </span>
+                  ) : (
+                    <span className="text-red-500">Hết hàng</span>
+                  )}
                 </p>
               </div>
             </div>
