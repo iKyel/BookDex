@@ -11,7 +11,9 @@ const createUser = asyncHandler(async (req, res) => {
   }
 
   const userExists = await User.findOne({ email });
-  if (userExists) res.status(400).send("Người dùng đã tồn tại!");
+  if (userExists) {
+    return res.status(400).send("Người dùng đã tồn tại!");
+  }
 
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
@@ -21,7 +23,7 @@ const createUser = asyncHandler(async (req, res) => {
     await newUser.save();
     createToken(res, newUser._id);
 
-    res.status(201).json({
+    return res.status(201).json({
       _id: newUser._id,
       username: newUser.username,
       email: newUser.email,

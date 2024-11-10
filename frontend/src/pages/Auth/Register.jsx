@@ -42,7 +42,7 @@ const Register = () => {
         toast.success("Đăng Ký Tài Khoản Thành Công!");
       } catch (err) {
         console.log(err);
-        toast.error(err.data.message);
+        toast.error(err.data);
       }
     }
   };

@@ -92,7 +92,7 @@ const fetchBooksByAuthor = asyncHandler(async (req, res) => {
     res.json(books);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Server Error" });
+    res.status(404).json({ error: "Tác giả không tồn tại!" });
   }
 });
 
