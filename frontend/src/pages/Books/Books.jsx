@@ -61,6 +61,9 @@ const Books = ({ books }) => {
                 <p className="text-gray-800">
                   Đánh giá: {Math.round(book.rating)}
                 </p>
+                <p className="text-gray-800">
+                 Tồn kho: {Math.round(book.countInStock)}
+                </p>
               </div>
             </div>
             <div className="p-4">
