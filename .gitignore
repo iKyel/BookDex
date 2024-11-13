@@ -1,5 +1,4 @@
-/test
-/.env
-/install.txt
-/Sample.docx
-/node_modules
+# Bỏ qua thư mục node_modules
+node_modules/
+Sample.docx
+.env
