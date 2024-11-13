@@ -127,7 +127,7 @@ const Navigation = () => {
               <>
                 <a
                   href="#"
-                  className="hover:text-gray-300"
+                  className="hover:text-gray-300 account"
                   onClick={toggleAccount}
                 >
                   Account

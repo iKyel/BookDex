@@ -2,7 +2,6 @@ import {
   RouterProvider,
   Route,
   createBrowserRouter,
-  createRoutesFromElements,
   createRoutesFromChildren,
 } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
